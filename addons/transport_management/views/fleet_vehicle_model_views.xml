@@ -20,8 +20,7 @@
                             <group string="Default Capacities">
                                 <field name="default_cargo_capacity" 
                                        invisible="vehicle_type in ['bus', 'car']"/>
-                                <field name="default_passenger_capacity" 
-                                       invisible="vehicle_type == 'trailer'"/>
+                                <field name="default_passenger_capacity"/>
                             </group>
                             <group string="Engine Specifications">
                                 <field name="engine_power"/>

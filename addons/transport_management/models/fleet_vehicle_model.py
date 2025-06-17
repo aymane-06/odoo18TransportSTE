@@ -11,9 +11,13 @@ class FleetVehicleModel(models.Model):
         ('truck', 'Truck'),
         ('bus', 'Bus'),
         ('car', 'Car'),
-        ('trailer', 'Trailer'),
         ('van', 'Van'),
     ], string='Vehicle Type', help='Type of vehicle for transport operations')
+
+    vehicle_category = fields.Selection([
+        ('light', 'Light Vehicle'),
+        ('heavy', 'Heavy Vehicle'),
+    ], string='Vehicle Category', help='Category of the vehicle (light or heavy)')
 
     # Relationship to vehicles
     vehicle_ids = fields.One2many(
@@ -73,7 +77,8 @@ class FleetVehicleModel(models.Model):
     # Cost estimation
     estimated_cost_per_km = fields.Float(
         string='Estimated Cost per KM',
-        help='Estimated operating cost per kilometer'
+        help='Estimated operating cost per kilometer',
+        readonly=True
     )
     
     # Computed statistics (similar to your fleet.vehicle)
@@ -94,6 +99,18 @@ class FleetVehicleModel(models.Model):
         compute='_compute_model_stats',
         help='Total kilometers driven by all vehicles of this model'
     )
+    
+    sql_constraints = [
+        ('unique_model_name', 'UNIQUE(name)', 'The vehicle model name must be unique.'),
+        ('positive_cargo_capacity', 'CHECK(default_cargo_capacity >= 0)', 'Cargo capacity must be a positive value.'),
+        ('positive_passenger_capacity', 'CHECK(default_passenger_capacity >= 0)', 'Passenger capacity must be a non-negative integer.'),
+        ('valid_fuel_consumption', 'CHECK(fuel_consumption_city >= 0 AND fuel_consumption_highway >= 0)',
+         'Fuel consumption values must be non-negative.'),
+        ('valid_engine_power', 'CHECK(engine_power >= 0)', 'Engine power must be a non-negative integer.'),
+        ('valid_estimated_cost', 'CHECK(estimated_cost_per_km >= 0)', 'Estimated cost per KM must be a non-negative value.'),
+        ('valid_license_category', 'CHECK(license_category IN (\'b\', \'c\', \'c1\', \'d\', \'d1\'))',
+         'License category must be one of: b, c, c1, d, d1.'),
+    ]
 
     @api.depends('vehicle_ids')
     def _compute_vehicle_count(self):
@@ -137,7 +154,6 @@ class FleetVehicleModel(models.Model):
         vehicle_vals = {
             'license_plate': license_plate,
             'model_id': self.id,
-            'vehicle_category': self.vehicle_category,
             'max_cargo_weight': self.default_cargo_capacity,
             'max_passenger_capacity': self.default_passenger_capacity,
         }
@@ -170,25 +186,16 @@ class FleetVehicleModel(models.Model):
             self.default_passenger_capacity = 5
             self.engine_power = 150
             self.transmission_type = 'manual'
-            self.requires_special_license = False
+            self.requires_special_license = True
             self.license_category = 'b'  # Car license
             self.fuel_consumption_city = 8.0  # Example values
             self.fuel_consumption_highway = 6.0
-        elif self.vehicle_type == 'trailer':
-            self.default_cargo_capacity = 15000  # Example default for trailers
-            self.default_passenger_capacity = 0  # Trailers typically don't carry passengers
-            self.engine_power = 0  # Trailers don't have engines
-            self.transmission_type = 'manual'
-            self.requires_special_license = True
-            self.license_category = 'c1'  # Light truck license for towing
-            self.fuel_consumption_city = 0.0  # Trailers don't consume fuel
-            self.fuel_consumption_highway = 0.0
         elif self.vehicle_type == 'van':    
             self.default_cargo_capacity = 2000
             self.default_passenger_capacity = 8
             self.engine_power = 200
             self.transmission_type = 'manual'
-            self.requires_special_license = False
+            self.requires_special_license = True
             self.license_category = 'b'  # Car license
             self.fuel_consumption_city = 12.0  # Example values
             self.fuel_consumption_highway = 8.0
@@ -201,4 +208,8 @@ class FleetVehicleModel(models.Model):
             self.license_category = 'b'  # Default to car license
             self.fuel_consumption_city = 0.0
             self.fuel_consumption_highway = 0.0
-            
+    @api.onchange('fuel_consumption_city', 'fuel_consumption_highway')
+    def _onchange_fuel_consumption(self):
+        # Reset estimated cost per km based on fuel consumption
+        if self.fuel_consumption_city and self.fuel_consumption_highway:
+            self.estimated_cost_per_km = (self.fuel_consumption_city + self.fuel_consumption_highway) / 2

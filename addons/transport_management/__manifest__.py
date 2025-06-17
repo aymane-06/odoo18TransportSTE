@@ -33,7 +33,7 @@
         'views/trip_views.xml',
         'views/trip_expense_views.xml',
         'views/trip_revenue_views.xml',
-        'views/fleet_vehicle_model.xml',
+        'views/fleet_vehicle_model_views.xml',
         'views/fleet_vehicle_views.xml',
         'views/hr_employee_views.xml',
         'views/transport_dashboard_views.xml',
