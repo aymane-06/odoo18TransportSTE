@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Trip Report Template -->
+        <record id="report_trip_document" model="ir.actions.report">
+            <field name="name">Trip Report</field>
+            <field name="model">transport.trip</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">transport_management.trip_report_template</field>
+            <field name="report_file">transport_management.trip_report_template</field>
+            <field name="binding_model_id" ref="model_transport_trip"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Trip Report Template -->
+        <template id="trip_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="trip">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Trip Report: <span t-field="trip.name"/></h2>
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <strong>Departure:</strong> <span t-field="trip.departure_city"/> (<span t-field="trip.departure_location"/>)<br/>
+                                    <strong>Destination:</strong> <span t-field="trip.destination_city"/> (<span t-field="trip.destination_location"/>)<br/>
+                                    <strong>Date:</strong> <span t-field="trip.departure_date"/><br/>
+                                    <strong>Service Type:</strong> <span t-field="trip.service_type"/><br/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Vehicle:</strong> <span t-field="trip.vehicle_id.name"/><br/>
+                                    <strong>Driver:</strong> <span t-field="trip.driver_id.name"/><br/>
+                                    <t t-if="trip.co_driver_id">
+                                        <strong>Co-Driver:</strong> <span t-field="trip.co_driver_id.name"/><br/>
+                                    </t>
+                                    <strong>Status:</strong> <span t-field="trip.state"/><br/>
+                                </div>
+                            </div>
+                            
+                            <!-- Financial Summary -->
+                            <h3>Financial Summary</h3>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Total Revenue:</strong></td>
+                                    <td class="text-end"><span t-field="trip.total_revenue" t-options="{'widget': 'monetary', 'display_currency': trip.currency_id}"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Expenses:</strong></td>
+                                    <td class="text-end"><span t-field="trip.total_expenses" t-options="{'widget': 'monetary', 'display_currency': trip.currency_id}"/></td>
+                                </tr>
+                                <tr class="border-top">
+                                    <td><strong>Profit:</strong></td>
+                                    <td class="text-end"><span t-field="trip.profit" t-options="{'widget': 'monetary', 'display_currency': trip.currency_id}"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

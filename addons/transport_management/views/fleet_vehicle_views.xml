@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Extend Fleet Vehicle Form View -->
+        <record id="view_fleet_vehicle_form_transport" model="ir.ui.view">
+            <field name="name">fleet.vehicle.form.transport</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_view_trips" type="object" class="oe_stat_button" icon="fa-truck">
+                        <field name="total_trips" widget="statinfo" string="Trips"/>
+                    </button>
+                    <button name="action_view_trips" type="object" class="oe_stat_button" icon="fa-road">
+                        <field name="total_km_trips" widget="statinfo" string="Trip KM"/>
+                    </button>
+                    <button name="action_view_trips" type="object" class="oe_stat_button" icon="fa-money">
+                        <field name="total_revenue" widget="monetary" string="Total Revenue"/>
+                    </button>
+                </xpath>
+                
+                <xpath expr="//field[@name='model_id']" position="after">
+                    <field name="vehicle_category"/>
+                    <field name="max_cargo_weight" invisible="vehicle_category == 'bus'"/>
+                    <field name="max_passenger_capacity" invisible="vehicle_category in ['truck', 'trailer']"/>
+                </xpath>
+                
+                <xpath expr="//page[@name='page_model']" position="after">
+                    <page string="Transport Documents" name="transport_docs">
+                        <group>
+                            <group string="Document Expiry Dates">
+                                <field name="carte_grise_expiry"/>
+                                <field name="vignette_expiry"/>
+                                <field name="international_permit_expiry"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Extend Fleet Vehicle Tree View -->
+        <record id="view_fleet_vehicle_tree_transport" model="ir.ui.view">
+            <field name="name">fleet.vehicle.tree.transport</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='driver_id']" position="after">
+                    <field name="vehicle_category"/>
+                    <field name="total_trips"/>
+                    <field name="total_km_trips"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Fleet Vehicle Search View Extension -->
+        <record id="view_fleet_vehicle_search_transport" model="ir.ui.view">
+            <field name="name">fleet.vehicle.search.transport</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='model_id']" position="after">
+                    <field name="vehicle_category"/>
+                </xpath>
+                
+                <xpath expr="//filter[@name='groupby_model']" position="after">
+                    <filter name="group_vehicle_category" string="Category" context="{'group_by': 'vehicle_category'}"/>
+                </xpath>
+                
+                <xpath expr="//filter[@name='alert_true']" position="after">
+                    <separator/>
+                    <filter name="expiring_docs" string="Expiring Documents" 
+                            domain="['|', '|', 
+                                     ('carte_grise_expiry', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d')),
+                                     ('vignette_expiry', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d')),
+                                     ('international_permit_expiry', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

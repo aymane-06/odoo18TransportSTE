@@ -1,0 +1,26 @@
+.o_transport_dashboard {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.o_transport_dashboard .card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.o_transport_dashboard .card:hover {
+    transform: translateY(-2px);
+}
+
+.o_transport_dashboard .border-end {
+    border-right: 1px solid #dee2e6 !important;
+}
+
+@media (max-width: 768px) {
+    .o_transport_dashboard .border-end {
+        border-right: none !important;
+        border-bottom: 1px solid #dee2e6 !important;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+}

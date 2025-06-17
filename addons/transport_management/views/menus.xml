@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main Transport Menu -->
+        <menuitem id="menu_transport_management" 
+                  name="Transport Management" 
+                  sequence="50"
+                  web_icon="transport_management,static/description/icon.png"/>
+
+        <!-- Dashboard Menu -->
+        <menuitem id="menu_transport_dashboard" 
+                  name="Dashboard" 
+                  parent="menu_transport_management" 
+                  action="action_transport_dashboard" 
+                  sequence="5"/>
+
+        <!-- Trips Submenu -->
+        <menuitem id="menu_transport_trips" 
+                  name="Trips" 
+                  parent="menu_transport_management" 
+                  sequence="10"/>
+
+        <menuitem id="menu_transport_trip_all" 
+                  name="All Trips" 
+                  parent="menu_transport_trips" 
+                  action="action_transport_trip" 
+                  sequence="10"/>
+
+        <menuitem id="menu_transport_trip_draft" 
+                  name="Draft Trips" 
+                  parent="menu_transport_trips" 
+                  action="action_transport_trip" 
+                  sequence="20"/>
+
+        <menuitem id="menu_transport_trip_progress" 
+                  name="Trips in Progress" 
+                  parent="menu_transport_trips" 
+                  action="action_transport_trip" 
+                  sequence="30"/>
+
+        <!-- Financial Submenu -->
+        <menuitem id="menu_transport_financial" 
+                  name="Financial" 
+                  parent="menu_transport_management" 
+                  sequence="20"/>
+
+        <menuitem id="menu_transport_revenues" 
+                  name="Revenues" 
+                  parent="menu_transport_financial" 
+                  action="action_transport_trip_revenue" 
+                  sequence="10"/>
+
+        <menuitem id="menu_transport_expenses" 
+                  name="Expenses" 
+                  parent="menu_transport_financial" 
+                  action="action_transport_trip_expense" 
+                  sequence="20"/>
+
+        <!-- Fleet Submenu -->
+        <menuitem id="menu_transport_fleet" 
+                  name="Fleet" 
+                  parent="menu_transport_management" 
+                  sequence="30"/>
+
+        <menuitem id="menu_transport_vehicles" 
+                  name="Vehicles" 
+                  parent="menu_transport_fleet" 
+                  action="fleet.fleet_vehicle_action" 
+                  sequence="10"/>
+
+        <menuitem id="menu_transport_vehicle_models" 
+                  name="Vehicle Models" 
+                  parent="menu_transport_fleet" 
+                  action="fleet.fleet_vehicle_model_action" 
+                  sequence="20"/>
+
+        <!-- HR Submenu -->
+        <menuitem id="menu_transport_hr" 
+                  name="Human Resources" 
+                  parent="menu_transport_management" 
+                  sequence="40"/>
+
+        <menuitem id="menu_transport_drivers" 
+                  name="Drivers" 
+                  parent="menu_transport_hr" 
+                  action="action_hr_employee_drivers" 
+                  sequence="10"/>
+
+        <menuitem id="menu_transport_employees" 
+                  name="All Employees" 
+                  parent="menu_transport_hr" 
+                  action="hr.open_view_employee_list_my" 
+                  sequence="20"/>
+
+        <!-- Reports Submenu -->
+        <menuitem id="menu_transport_reports" 
+                  name="Reports" 
+                  parent="menu_transport_management" 
+                  sequence="50"/>
+
+        <!-- Configuration Submenu -->
+        <menuitem id="menu_transport_configuration" 
+                  name="Configuration" 
+                  parent="menu_transport_management" 
+                  sequence="100"
+                  groups="group_transport_manager"/>
+    </data>
+</odoo>

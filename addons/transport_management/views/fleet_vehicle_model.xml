@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Extend Fleet Vehicle Model Form View -->
+        <record id="view_fleet_vehicle_model_form_transport" model="ir.ui.view">
+            <field name="name">fleet.vehicle.model.form.transport</field>
+            <field name="model">fleet.vehicle.model</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_form"/>
+            <field name="arch" type="xml">
+                
+                <!-- Stat buttons temporarily removed for successful upgrade -->
+
+                
+
+                <!-- Add new notebook pages -->
+                <xpath expr="//notebook" position="inside">
+                    <!-- Transport Specifications Page -->
+                    <page string="Transport Specifications" name="transport_specs">
+                        <group>
+                            <group string="Default Capacities">
+                                <field name="default_cargo_capacity" 
+                                       invisible="vehicle_type in ['bus', 'car']"/>
+                                <field name="default_passenger_capacity" 
+                                       invisible="vehicle_type == 'trailer'"/>
+                            </group>
+                            <group string="Engine Specifications">
+                                <field name="engine_power"/>
+                                <field name="transmission_type"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Fuel Consumption">
+                                <field name="fuel_consumption_city"/>
+                                <field name="fuel_consumption_highway"/>
+                            </group>
+                            <group string="Cost Estimation">
+                                <field name="estimated_cost_per_km"/>
+                            </group>
+                        </group>
+                    </page>
+                    
+                    <!-- License Page -->
+                    <page string="License Requirements" name="license_compliance">
+                        <group>
+                            <group string="License Requirements">
+                                <field name="requires_special_license"/>
+                                <field name="license_category" 
+                                       invisible="not requires_special_license"
+                                       required="requires_special_license"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Extend Fleet Vehicle Model Tree/List View -->
+        <record id="view_fleet_vehicle_model_tree_transport" model="ir.ui.view">
+            <field name="name">fleet.vehicle.model.tree.transport</field>
+            <field name="model">fleet.vehicle.model</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_tree"/>
+            <field name="arch" type="xml">
+                <!-- Add new columns after brand -->
+                <xpath expr="//field[@name='brand_id']" position="after">
+                    <field name="vehicle_type"/>
+                    <field name="vehicle_count"/>
+                    <field name="default_cargo_capacity" optional="hide"/>
+                    <field name="default_passenger_capacity" optional="hide"/>
+                    <field name="engine_power" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Extend Fleet Vehicle Model Search View -->
+        <record id="view_fleet_vehicle_model_search_transport" model="ir.ui.view">
+            <field name="name">fleet.vehicle.model.search.transport</field>
+            <field name="model">fleet.vehicle.model</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_search"/>
+            <field name="arch" type="xml">
+                <!-- Add search fields -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="vehicle_type"/>
+                    <field name="license_category"/>
+                    <field name="engine_power"/>
+                </xpath>
+                
+                <!-- Add filter buttons -->
+                <xpath expr="//filter[@name='contains_vehicle']" position="after">
+                    <separator/>
+                    <filter string="Trucks" name="filter_trucks" 
+                            domain="[('vehicle_type', '=', 'truck')]"/>
+                    <filter string="Buses" name="filter_buses" 
+                            domain="[('vehicle_type', '=', 'bus')]"/>
+                    <filter string="Cars" name="filter_cars" 
+                            domain="[('vehicle_type', '=', 'car')]"/>
+                    <filter string="Vans" name="filter_vans" 
+                            domain="[('vehicle_type', '=', 'van')]"/>
+                    <separator/>
+                    <filter string="Requires Special License" name="filter_special_license" 
+                            domain="[('requires_special_license', '=', True)]"/>
+                </xpath>
+                
+                <!-- Add group by options -->
+                <xpath expr="//filter[@name='groupby_vehicle_type']" position="after">
+                    <filter string="Transport Type" name="groupby_transport_type" 
+                            domain="[]" context="{'group_by': 'vehicle_type'}"/>
+                    <filter string="License Category" name="groupby_license" 
+                            domain="[]" context="{'group_by': 'license_category'}"/>
+                    <filter string="Transmission Type" name="groupby_transmission" 
+                            domain="[]" context="{'group_by': 'transmission_type'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Create action for Vehicle Models with transport context -->
+        <record id="action_fleet_vehicle_model_transport" model="ir.actions.act_window">
+            <field name="name">Vehicle Models</field>
+            <field name="res_model">fleet.vehicle.model</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_fleet_vehicle_model_search_transport"/>
+            <field name="context">{
+                'search_default_groupby_transport_type': 1,
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new vehicle model
+                </p>
+                <p>
+                    Define vehicle models with transport specifications including
+                    capacity, engine details, and license requirements.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

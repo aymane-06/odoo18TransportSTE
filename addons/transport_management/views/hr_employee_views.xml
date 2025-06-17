@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Extend HR Employee Form View -->
+        <record id="view_hr_employee_form_driver" model="ir.ui.view">
+            <field name="name">hr.employee.form.driver</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_view_trips" type="object" class="oe_stat_button" 
+                            icon="fa-truck" invisible="is_driver == False">
+                        <field name="total_trips" widget="statinfo" string="Trips"/>
+                    </button>
+                    <button name="action_view_trips" type="object" class="oe_stat_button" 
+                            icon="fa-road" invisible="is_driver == False">
+                        <field name="total_km_driven" widget="statinfo" string="KM Driven"/>
+                    </button>
+                </xpath>
+                
+                <xpath expr="//field[@name='category_ids']" position="after">
+                    <field name="is_driver"/>
+                </xpath>
+                
+                <xpath expr="//page[@name='public']" position="after">
+                    <page string="Driver Information" name="driver_info" invisible="is_driver == False">>
+                        <group>
+                            <group string="License Information">
+                                <field name="driver_license_number"/>
+                                <field name="driver_license_category"/>
+                                <field name="driver_license_expiry"/>
+                                <field name="international_license_expiry"/>
+                            </group>
+                            <group string="Professional Qualifications">
+                                <field name="professional_card_number"/>
+                                <field name="professional_card_expiry"/>
+                                <field name="driving_experience_years"/>
+                                <field name="international_routes_experience"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Availability">
+                                <field name="available_for_trip"/>
+                                <field name="current_location"/>
+                            </group>
+                            <group string="Statistics">
+                                <field name="total_trips" readonly="1"/>
+                                <field name="total_km_driven" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Extend HR Employee Tree View -->
+        <record id="view_hr_employee_tree_driver" model="ir.ui.view">
+            <field name="name">hr.employee.tree.driver</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="is_driver"/>
+                    <field name="available_for_trip" invisible="is_driver == False"/>
+                    <field name="current_location" invisible="is_driver == False"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- HR Employee Search View Extension -->
+        <record id="view_hr_employee_search_driver" model="ir.ui.view">
+            <field name="name">hr.employee.search.driver</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="driver_license_category"/>
+                </xpath>
+                
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
+                    <filter name="is_driver" string="Drivers Only" domain="[('is_driver', '=', True)]"/>
+                    <filter name="available_drivers" string="Available Drivers" 
+                            domain="[('is_driver', '=', True), ('available_for_trip', '=', True)]"/>
+                    <filter name="morocco_drivers" string="Drivers in Morocco" 
+                            domain="[('is_driver', '=', True), ('current_location', '=', 'morocco')]"/>
+                    <filter name="france_drivers" string="Drivers in France" 
+                            domain="[('is_driver', '=', True), ('current_location', '=', 'france')]"/>
+                    <separator/>
+                    <filter name="expiring_licenses" string="Expiring Licenses" 
+                            domain="['|', '|',
+                                     ('driver_license_expiry', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d')),
+                                     ('international_license_expiry', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d')),
+                                     ('professional_card_expiry', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                </xpath>
+                
+                <xpath expr="//filter[@name='group_manager']" position="after">
+                    <filter name="group_driver_license" string="License Category" context="{'group_by': 'driver_license_category'}"/>
+                    <filter name="group_current_location" string="Current Location" context="{'group_by': 'current_location'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Drivers Action -->
+        <record id="action_hr_employee_drivers" model="ir.actions.act_window">
+            <field name="name">Drivers</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="domain">[('is_driver', '=', True)]</field>
+            <field name="context">{'default_is_driver': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add your first driver!
+                </p>
+                <p>
+                    Manage your driver information including licenses, qualifications,
+                    and availability for trips.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

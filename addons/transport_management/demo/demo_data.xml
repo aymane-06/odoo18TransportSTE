@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Drivers (created first) -->
+        <record id="demo_driver_1" model="hr.employee">
+            <field name="name">Ahmed Ben Ali</field>
+            <field name="is_driver">True</field>
+            <field name="driver_license_number">DL123456</field>
+            <field name="driver_license_category">ce</field>
+            <field name="driver_license_expiry" eval="(datetime.now() + timedelta(days=365)).date()"/>
+            <field name="international_license_expiry" eval="(datetime.now() + timedelta(days=180)).date()"/>
+            <field name="professional_card_number">PC789012</field>
+            <field name="professional_card_expiry" eval="(datetime.now() + timedelta(days=730)).date()"/>
+            <field name="driving_experience_years">10</field>
+            <field name="international_routes_experience">True</field>
+            <field name="available_for_trip">True</field>
+            <field name="current_location">morocco</field>
+        </record>
+
+        <record id="demo_driver_2" model="hr.employee">
+            <field name="name">Mohamed Idrissi</field>
+            <field name="is_driver">True</field>
+            <field name="driver_license_number">DL345678</field>
+            <field name="driver_license_category">c</field>
+            <field name="driver_license_expiry" eval="(datetime.now() + timedelta(days=200)).date()"/>
+            <field name="international_license_expiry" eval="(datetime.now() + timedelta(days=90)).date()"/>
+            <field name="professional_card_number">PC345678</field>
+            <field name="professional_card_expiry" eval="(datetime.now() + timedelta(days=500)).date()"/>
+            <field name="driving_experience_years">7</field>
+            <field name="international_routes_experience">True</field>
+            <field name="available_for_trip">False</field>
+            <field name="current_location">france</field>
+        </record>
+
+        <record id="demo_driver_3" model="hr.employee">
+            <field name="name">Youssef Tazi</field>
+            <field name="is_driver">True</field>
+            <field name="driver_license_number">DL567890</field>
+            <field name="driver_license_category">d</field>
+            <field name="driver_license_expiry" eval="(datetime.now() + timedelta(days=150)).date()"/>
+            <field name="international_license_expiry" eval="(datetime.now() + timedelta(days=60)).date()"/>
+            <field name="professional_card_number">PC567890</field>
+            <field name="professional_card_expiry" eval="(datetime.now() + timedelta(days=400)).date()"/>
+            <field name="driving_experience_years">12</field>
+            <field name="international_routes_experience">True</field>
+            <field name="available_for_trip">True</field>
+            <field name="current_location">morocco</field>
+        </record>
+
+        <!-- Demo Fleet Vehicle Models -->
+        <record id="demo_vehicle_model_truck" model="fleet.vehicle.model">
+            <field name="name">Demo Truck Model</field>
+            <field name="brand_id" ref="fleet.brand_opel"/>
+        </record>
+
+        <record id="demo_vehicle_model_bus" model="fleet.vehicle.model">
+            <field name="name">Demo Bus Model</field>
+            <field name="brand_id" ref="fleet.brand_opel"/>
+        </record>
+
+        <!-- Demo Fleet Vehicles -->
+        <record id="demo_vehicle_truck_1" model="fleet.vehicle">
+            <field name="model_id" ref="demo_vehicle_model_truck"/>
+            <field name="license_plate">34-A-1234</field>
+            <field name="driver_id" ref="demo_driver_1"/>
+            <field name="vehicle_category">truck</field>
+            <field name="max_cargo_weight">25000</field>
+            <field name="carte_grise_expiry" eval="(datetime.now() + timedelta(days=365)).date()"/>
+            <field name="vignette_expiry" eval="(datetime.now() + timedelta(days=180)).date()"/>
+            <field name="international_permit_expiry" eval="(datetime.now() + timedelta(days=90)).date()"/>
+        </record>
+
+        <record id="demo_vehicle_truck_2" model="fleet.vehicle">
+            <field name="model_id" ref="demo_vehicle_model_truck"/>
+            <field name="license_plate">34-B-5678</field>
+            <field name="driver_id" ref="demo_driver_2"/>
+            <field name="vehicle_category">truck</field>
+            <field name="max_cargo_weight">20000</field>
+            <field name="carte_grise_expiry" eval="(datetime.now() + timedelta(days=200)).date()"/>
+            <field name="vignette_expiry" eval="(datetime.now() + timedelta(days=150)).date()"/>
+            <field name="international_permit_expiry" eval="(datetime.now() + timedelta(days=60)).date()"/>
+        </record>
+
+        <record id="demo_vehicle_bus_1" model="fleet.vehicle">
+            <field name="model_id" ref="demo_vehicle_model_bus"/>
+            <field name="license_plate">34-C-9012</field>
+            <field name="driver_id" ref="demo_driver_3"/>
+            <field name="vehicle_category">bus</field>
+            <field name="max_passenger_capacity">50</field>
+            <field name="carte_grise_expiry" eval="(datetime.now() + timedelta(days=300)).date()"/>
+            <field name="vignette_expiry" eval="(datetime.now() + timedelta(days=120)).date()"/>
+            <field name="international_permit_expiry" eval="(datetime.now() + timedelta(days=45)).date()"/>
+        </record>
+
+        <!-- Demo Trips -->
+        <record id="demo_trip_1" model="transport.trip">
+            <field name="name">TRIP/0001/25</field>
+            <field name="departure_location">morocco</field>
+            <field name="destination_location">france</field>
+            <field name="departure_city">Casablanca</field>
+            <field name="destination_city">Paris</field>
+            <field name="trip_type">round_trip</field>
+            <field name="departure_date" eval="datetime.now() + timedelta(days=1)"/>
+            <field name="arrival_date" eval="datetime.now() + timedelta(days=4)"/>
+            <field name="return_date" eval="datetime.now() + timedelta(days=7)"/>
+            <field name="vehicle_id" ref="demo_vehicle_truck_1"/>
+            <field name="driver_id" ref="demo_driver_1"/>
+            <field name="service_type">cargo</field>
+            <field name="cargo_description">Electronic equipment</field>
+            <field name="cargo_weight">15000</field>
+            <field name="distance_km">2500</field>
+            <field name="fuel_consumption">750</field>
+            <field name="state">confirmed</field>
+        </record>
+
+        <record id="demo_trip_2" model="transport.trip">
+            <field name="name">TRIP/0002/25</field>
+            <field name="departure_location">france</field>
+            <field name="destination_location">morocco</field>
+            <field name="departure_city">Marseille</field>
+            <field name="destination_city">Tangier</field>
+            <field name="trip_type">one_way</field>
+            <field name="departure_date" eval="datetime.now() + timedelta(days=3)"/>
+            <field name="arrival_date" eval="datetime.now() + timedelta(days=6)"/>
+            <field name="vehicle_id" ref="demo_vehicle_bus_1"/>
+            <field name="driver_id" ref="demo_driver_3"/>
+            <field name="service_type">passenger</field>
+            <field name="passenger_count">45</field>
+            <field name="distance_km">1800</field>
+            <field name="fuel_consumption">600</field>
+            <field name="state">draft</field>
+        </record>
+
+        <!-- Demo Revenues -->
+        <record id="demo_revenue_1" model="transport.trip.revenue">
+            <field name="trip_id" ref="demo_trip_1"/>
+            <field name="revenue_type">cargo_transport</field>
+            <field name="name">Cargo Transport Fee</field>
+            <field name="amount">8500</field>
+            <field name="customer">ABC Electronics</field>
+            <field name="payment_status">paid</field>
+            <field name="date" eval="datetime.now().date()"/>
+        </record>
+
+        <record id="demo_revenue_2" model="transport.trip.revenue">
+            <field name="trip_id" ref="demo_trip_2"/>
+            <field name="revenue_type">passenger_transport</field>
+            <field name="name">Passenger Transport Fee</field>
+            <field name="amount">4500</field>
+            <field name="customer">Travel Agency XYZ</field>
+            <field name="payment_status">not_paid</field>
+            <field name="date" eval="datetime.now().date()"/>
+        </record>
+
+        <!-- Demo Expenses -->
+        <record id="demo_expense_1" model="transport.trip.expense">
+            <field name="trip_id" ref="demo_trip_1"/>
+            <field name="expense_type">fuel</field>
+            <field name="name">Fuel</field>
+            <field name="amount">1200</field>
+            <field name="location">Casablanca</field>
+            <field name="supplier">Shell Station</field>
+            <field name="date" eval="datetime.now().date()"/>
+        </record>
+
+        <record id="demo_expense_2" model="transport.trip.expense">
+            <field name="trip_id" ref="demo_trip_1"/>
+            <field name="expense_type">toll</field>
+            <field name="name">Highway Tolls</field>
+            <field name="amount">350</field>
+            <field name="location">Spain-France Border</field>
+            <field name="date" eval="datetime.now().date()"/>
+        </record>
+
+        <record id="demo_expense_3" model="transport.trip.expense">
+            <field name="trip_id" ref="demo_trip_1"/>
+            <field name="expense_type">accommodation</field>
+            <field name="name">Hotel Stay</field>
+            <field name="amount">120</field>
+            <field name="location">Barcelona</field>
+            <field name="supplier">Hotel Ibis</field>
+            <field name="date" eval="datetime.now().date()"/>
+        </record>
+
+        <record id="demo_expense_4" model="transport.trip.expense">
+            <field name="trip_id" ref="demo_trip_2"/>
+            <field name="expense_type">fuel</field>
+            <field name="name">Fuel</field>
+            <field name="amount">900</field>
+            <field name="location">Marseille</field>
+            <field name="supplier">Total Station</field>
+            <field name="date" eval="datetime.now().date()"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Profit Analysis Report -->
+        <record id="report_profit_analysis" model="ir.actions.report">
+            <field name="name">Profit Analysis</field>
+            <field name="model">transport.trip</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">transport_management.profit_analysis_template</field>
+            <field name="report_file">transport_management.profit_analysis_template</field>
+        </record>
+
+        <!-- Profit Analysis Template -->
+        <template id="profit_analysis_template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <h2>Profit Analysis Report</h2>
+                    <p>Generated on: <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M')"/></p>
+                    
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Trip</th>
+                                <th>Route</th>
+                                <th>Revenue</th>
+                                <th>Expenses</th>
+                                <th>Profit</th>
+                                <th>Margin %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="trip">
+                                <tr>
+                                    <td><span t-field="trip.name"/></td>
+                                    <td><span t-field="trip.departure_city"/> → <span t-field="trip.destination_city"/></td>
+                                    <td><span t-field="trip.total_revenue"/></td>
+                                    <td><span t-field="trip.total_expenses"/></td>
+                                    <td><span t-field="trip.profit"/></td>
+                                    <td><span t-field="trip.profit_margin"/>%</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

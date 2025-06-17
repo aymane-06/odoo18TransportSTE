@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Trip Expense Form View -->
+        <record id="view_transport_trip_expense_form" model="ir.ui.view">
+            <field name="name">transport.trip.expense.form</field>
+            <field name="model">transport.trip.expense</field>
+            <field name="arch" type="xml">
+                <form string="Trip Expense">
+                    <sheet>
+                        <group>
+                            <group name="expense_info" string="Expense Information">
+                                <field name="trip_id"/>
+                                <field name="expense_type"/>
+                                <field name="name"/>
+                                <field name="amount" widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="date"/>
+                            </group>
+                            <group name="details" string="Details">
+                                <field name="location"/>
+                                <field name="supplier"/>
+                                <field name="receipt_number"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="notes" placeholder="Additional notes..."/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Trip Expense Action -->
+        <record id="action_transport_trip_expense" model="ir.actions.act_window">
+            <field name="name">Trip Expenses</field>
+            <field name="res_model">transport.trip.expense</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first trip expense!
+                </p>
+                <p>
+                    Track all expenses related to your transport trips.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

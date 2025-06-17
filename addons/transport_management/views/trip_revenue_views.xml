@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Trip Revenue Form View -->
+        <record id="view_transport_trip_revenue_form" model="ir.ui.view">
+            <field name="name">transport.trip.revenue.form</field>
+            <field name="model">transport.trip.revenue</field>
+            <field name="arch" type="xml">
+                <form string="Trip Revenue">
+                    <sheet>
+                        <group>
+                            <group name="revenue_info" string="Revenue Information">
+                                <field name="trip_id"/>
+                                <field name="revenue_type"/>
+                                <field name="name"/>
+                                <field name="amount" widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="date"/>
+                            </group>
+                            <group name="payment_info" string="Payment Information">
+                                <field name="customer"/>
+                                <field name="payment_status"/>
+                                <field name="payment_date" invisible="payment_status == 'not_paid'"/>
+                                <field name="invoice_number"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Trip Revenue Action -->
+        <record id="action_transport_trip_revenue" model="ir.actions.act_window">
+            <field name="name">Trip Revenues</field>
+            <field name="res_model">transport.trip.revenue</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first trip revenue!
+                </p>
+                <p>
+                    Track all revenues from your transport trips.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,137 @@
+Cahier des charges – Projet Odoo pour Société de Transport
+1. Objectif général
+Mettre en place un système de gestion intégré basé sur Odoo pour une société de transport afin de :
+Gérer les véhicules et leur maintenance.
+
+
+Suivre les trajets (voyages) effectués entre le Maroc et la France.
+
+
+Suivre les ventes de services de transport.
+
+
+Gérer le personnel et les chauffeurs.
+
+
+Calculer les coûts et bénéfices de chaque voyage.
+
+
+
+2. Modules Odoo à utiliser
+2.1. Fleet Management
+Gestion du parc de véhicules (camions, bus, etc.).
+
+
+Suivi de l’entretien, du carburant, des assurances, des réparations.
+
+
+Suivi des documents (carte grise, vignette, etc.).
+
+
+2.2. HR (Ressources Humaines)
+Gestion des chauffeurs et du personnel.
+
+
+Affectation des chauffeurs aux voyages.
+
+
+Suivi des contrats, présences, absences, et frais.
+
+
+2.3. Sales
+Création et gestion des devis et commandes pour les services de transport.
+
+
+Facturation des clients (transport de marchandises ou de personnes).
+
+
+2.4. Module personnalisé : Gestion des Voyages
+Création de voyages :
+
+
+Départ : Maroc → Destination : France (ou l’inverse).
+
+
+Possibilité d'aller simple ou aller-retour.
+
+
+Affectation d’un véhicule et d’un chauffeur.
+
+
+Ajout des frais liés à chaque voyage :
+
+
+Carburant
+
+
+Péages
+
+
+Frais de douane
+
+
+Hébergement, repas, etc.
+
+
+Enregistrement des revenus du voyage.
+
+
+Calcul automatique du résultat net du voyage :
+ Résultat = Revenus - (Frais véhicule + Frais chauffeur + Autres frais)
+
+
+
+3. Fonctionnalités spécifiques à développer
+Fonction
+Description
+Création de voyage
+Interface pour enregistrer un trajet, véhicule, chauffeur, date, destination
+Suivi des coûts
+Interface pour enregistrer les dépenses par voyage
+Calcul des gains
+Saisie du revenu du voyage et calcul automatique du bénéfice
+Reporting
+Rapport des bénéfices par voyage, chauffeur, véhicule, période
+Alertes
+Alertes sur les documents de véhicules expirés, entretiens à prévoir
+
+
+
+
+4. Utilisateurs cibles
+Rôle
+Droits
+Administrateur
+Accès complet à tous les modules
+Responsable parc auto
+Gestion des véhicules et des voyages
+Responsable RH
+Gestion des chauffeurs et du personnel
+Responsable commercial
+Gestion des ventes et devis
+Comptable
+Suivi des dépenses et résultats
+
+
+5. Livrables attendus
+Instance Odoo installée et configurée.
+
+
+Modules natifs (Fleet, HR, Sales) paramétrés.
+
+
+Module personnalisé “Gestion de voyages”.
+
+
+Fiches de formation et documentation utilisateur.
+
+
+Tableau de bord de suivi des performances des voyages.
+
+
+
+
+
+
+
+

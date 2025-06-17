@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_transport_trip_user,transport.trip.user,model_transport_trip,group_transport_user,1,1,1,0
+access_transport_trip_manager,transport.trip.manager,model_transport_trip,group_transport_manager,1,1,1,1
+access_transport_trip_admin,transport.trip.admin,model_transport_trip,group_transport_admin,1,1,1,1
+access_transport_trip_expense_user,transport.trip.expense.user,model_transport_trip_expense,group_transport_user,1,1,1,0
+access_transport_trip_expense_manager,transport.trip.expense.manager,model_transport_trip_expense,group_transport_manager,1,1,1,1
+access_transport_trip_expense_admin,transport.trip.expense.admin,model_transport_trip_expense,group_transport_admin,1,1,1,1
+access_transport_trip_revenue_user,transport.trip.revenue.user,model_transport_trip_revenue,group_transport_user,1,1,1,0
+access_transport_trip_revenue_manager,transport.trip.revenue.manager,model_transport_trip_revenue,group_transport_manager,1,1,1,1
+access_transport_trip_revenue_admin,transport.trip.revenue.admin,model_transport_trip_revenue,group_transport_admin,1,1,1,1
+access_transport_trip_fleet_responsible,transport.trip.fleet.responsible,model_transport_trip,group_fleet_responsible,1,1,1,1
+access_transport_trip_hr_responsible,transport.trip.hr.responsible,model_transport_trip,group_hr_responsible,1,0,0,0
+access_transport_trip_commercial_responsible,transport.trip.commercial.responsible,model_transport_trip,group_commercial_responsible,1,1,1,0
+access_transport_trip_accountant,transport.trip.accountant,model_transport_trip,group_accountant,1,0,0,0
+access_transport_trip_expense_accountant,transport.trip.expense.accountant,model_transport_trip_expense,group_accountant,1,1,1,0
+access_transport_trip_revenue_accountant,transport.trip.revenue.accountant,model_transport_trip_revenue,group_accountant,1,1,1,0

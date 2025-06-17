@@ -1,0 +1,12 @@
+<!-- Stat buttons to add back after successful upgrade -->
+<xpath expr="//sheet" position="before">
+    <header>
+        <button name="action_view_vehicles" 
+                type="object" 
+                class="oe_stat_button" 
+                icon="fa-car"
+                attrs="{'invisible': [('vehicle_count', '=', 0)]}">
+            <field name="vehicle_count" widget="statinfo" string="Vehicles"/>
+        </button>
+    </header>
+</xpath>

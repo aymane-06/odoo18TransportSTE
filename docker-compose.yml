@@ -2,7 +2,7 @@ version: '2'
 services:
   db:
     image: postgres:17
-    user: root
+    #user: root
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo18@2024
@@ -18,7 +18,7 @@ services:
       - db
     ports:
       - "10018:8069"
-      - "20018:8072" # live chat
+      - "20018:8072" # live chatodoo18@2024
     tty: true
     command: --
     environment:
