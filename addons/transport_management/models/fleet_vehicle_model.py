@@ -12,6 +12,7 @@ class FleetVehicleModel(models.Model):
         ('bus', 'Bus'),
         ('car', 'Car'),
         ('van', 'Van'),
+        ('bike', 'Motorcycle'),
     ], string='Vehicle Type', help='Type of vehicle for transport operations')
 
     vehicle_category = fields.Selection([

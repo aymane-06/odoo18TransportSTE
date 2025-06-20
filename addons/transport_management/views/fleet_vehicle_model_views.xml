@@ -10,7 +10,13 @@
                 
                 <!-- Stat buttons temporarily removed for successful upgrade -->
 
-                
+                <xpath expr="//page[@name='information']/group/group[1]" position="attributes">
+                    <attribute name="invisible">vehicle_type in ['motorcycle', 'bike']</attribute>
+                </xpath>
+                <xpath expr="//page[@name='information']/group/group[3]" position="attributes">
+                    <attribute name="invisible">vehicle_type in ['motorcycle', 'bike']</attribute>
+                </xpath>
+
 
                 <!-- Add new notebook pages -->
                 <xpath expr="//notebook" position="inside">

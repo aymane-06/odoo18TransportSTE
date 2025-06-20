@@ -15,8 +15,6 @@
         <record id="location_casablanca" model="res.partner">
             <field name="name">Casablanca</field>
             <field name="is_company">False</field>
-            <field name="supplier_rank">0</field>
-            <field name="customer_rank">0</field>
             <field name="country_id" ref="base.ma"/>
             <field name="city">Casablanca</field>
         </record>
@@ -24,8 +22,6 @@
         <record id="location_tangier" model="res.partner">
             <field name="name">Tangier</field>
             <field name="is_company">False</field>
-            <field name="supplier_rank">0</field>
-            <field name="customer_rank">0</field>
             <field name="country_id" ref="base.ma"/>
             <field name="city">Tangier</field>
         </record>
@@ -33,8 +29,6 @@
         <record id="location_paris" model="res.partner">
             <field name="name">Paris</field>
             <field name="is_company">False</field>
-            <field name="supplier_rank">0</field>
-            <field name="customer_rank">0</field>
             <field name="country_id" ref="base.fr"/>
             <field name="city">Paris</field>
         </record>
@@ -42,8 +36,6 @@
         <record id="location_marseille" model="res.partner">
             <field name="name">Marseille</field>
             <field name="is_company">False</field>
-            <field name="supplier_rank">0</field>
-            <field name="customer_rank">0</field>
             <field name="country_id" ref="base.fr"/>
             <field name="city">Marseille</field>
         </record>
