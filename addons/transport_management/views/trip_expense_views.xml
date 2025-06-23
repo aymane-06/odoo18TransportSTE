@@ -8,31 +8,76 @@
             <field name="arch" type="xml">
                 <form string="Trip Expense">
                     <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Expense description..."/>
+                            </h1>
+                        </div>
+                        
                         <group>
                             <group name="expense_info" string="Expense Information">
                                 <field name="trip_id"/>
                                 <field name="expense_type"/>
-                                <field name="name"/>
-                                <field name="amount" widget="monetary"/>
                                 <field name="currency_id" invisible="1"/>
+                                <field name="amount" widget="monetary"/>
                                 <field name="date"/>
                             </group>
                             <group name="details" string="Details">
                                 <field name="location"/>
                                 <field name="supplier"/>
                                 <field name="receipt_number"/>
+                                <field name="vehicle_id" readonly="1"/>
+                                <field name="driver_id" readonly="1"/>
+                                <field name="company_id" invisible="1"/>
                             </group>
                         </group>
-                        <group>
-                            <field name="notes" placeholder="Additional notes..."/>
+                        
+                        <group string="Additional Information">
+                            <field name="notes" placeholder="Additional notes about this expense..." nolabel="1"/>
                         </group>
                     </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                    <chatter/>
+
                 </form>
+            </field>
+        </record>
+
+        <!-- Trip Expense List View -->
+        <record id="view_transport_trip_expense_tree" model="ir.ui.view">
+            <field name="name">transport.trip.expense.tree</field>
+            <field name="arch" type="xml">
+                <list string="Trip Expenses">
+                    <field name="date"/>
+                    <field name="trip_id"/>
+                    <field name="name"/>
+                    <field name="expense_type"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="amount" widget="monetary"/>
+                    <field name="supplier"/>
+                    <field name="location"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Trip Expense Search View -->
+        <record id="view_transport_trip_expense_search" model="ir.ui.view">
+            <field name="name">transport.trip.expense.search</field>
+            <field name="model">transport.trip.expense</field>
+            <field name="arch" type="xml">
+                <search string="Search Trip Expenses">
+                    <field name="name"/>
+                    <field name="trip_id"/>
+                    <field name="expense_type"/>
+                    <field name="supplier"/>
+                    <field name="location"/>
+                    <filter string="This Month" name="this_month" 
+                            domain="[('date','&gt;=',context_today().strftime('%Y-%m-01'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Trip" name="group_trip" context="{'group_by':'trip_id'}"/>
+                        <filter string="Expense Type" name="group_type" context="{'group_by':'expense_type'}"/>
+                        <filter string="Date" name="group_date" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 
@@ -40,15 +85,31 @@
         <record id="action_transport_trip_expense" model="ir.actions.act_window">
             <field name="name">Trip Expenses</field>
             <field name="res_model">transport.trip.expense</field>
-            <field name="view_mode">form</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_transport_trip_expense_search"/>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Create your first trip expense!
                 </p>
                 <p>
-                    Track all expenses related to your transport trips.
+                    Track all expenses related to your transport trips including fuel, tolls, accommodation, and customs fees.
                 </p>
             </field>
+        </record>
+
+        <!-- Trip Expense Views for Action -->
+        <record id="action_transport_trip_expense_view_list" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_transport_trip_expense_tree"/>
+            <field name="act_window_id" ref="action_transport_trip_expense"/>
+        </record>
+
+        <record id="action_transport_trip_expense_view_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_transport_trip_expense_form"/>
+            <field name="act_window_id" ref="action_transport_trip_expense"/>
         </record>
     </data>
 </odoo>
