@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Transport Service Category -->
+        <record id="product_category_transport" model="product.category">
+            <field name="name">Transport Services</field>
+            <field name="parent_id" ref="product.product_category_all"/>
+        </record>
+
+        <!-- Passenger Transport Service Products -->
+        <record id="product_passenger_transport_morocco_france" model="product.product">
+            <field name="name">Passenger Transport Morocco-France</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">150.00</field>
+            <field name="standard_price">100.00</field>
+            <field name="description">Passenger transport service from Morocco to France</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+        <record id="product_passenger_transport_france_morocco" model="product.product">
+            <field name="name">Passenger Transport France-Morocco</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">150.00</field>
+            <field name="standard_price">100.00</field>
+            <field name="description">Passenger transport service from France to Morocco</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+        <record id="product_passenger_transport_round_trip" model="product.product">
+            <field name="name">Passenger Transport Round Trip Morocco-France</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">280.00</field>
+            <field name="standard_price">200.00</field>
+            <field name="description">Round trip passenger transport service Morocco-France-Morocco</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+        <!-- Freight/Cargo Transport Service Products -->
+        <record id="product_cargo_transport_morocco_france" model="product.product">
+            <field name="name">Cargo Transport Morocco-France</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">500.00</field>
+            <field name="standard_price">350.00</field>
+            <field name="description">Cargo/freight transport service from Morocco to France</field>
+            <field name="invoice_policy">order</field>
+            <field name="uom_id" ref="uom.product_uom_kgm"/>
+            <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        </record>
+
+        <record id="product_cargo_transport_france_morocco" model="product.product">
+            <field name="name">Cargo Transport France-Morocco</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">500.00</field>
+            <field name="standard_price">350.00</field>
+            <field name="description">Cargo/freight transport service from France to Morocco</field>
+            <field name="invoice_policy">order</field>
+            <field name="uom_id" ref="uom.product_uom_kgm"/>
+            <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        </record>
+
+        <!-- Additional Transport Services -->
+        <record id="product_express_transport" model="product.product">
+            <field name="name">Express Transport Service</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">200.00</field>
+            <field name="standard_price">150.00</field>
+            <field name="description">Express transport service with priority handling</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+        <record id="product_insurance_coverage" model="product.product">
+            <field name="name">Transport Insurance Coverage</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">50.00</field>
+            <field name="standard_price">30.00</field>
+            <field name="description">Insurance coverage for transport services</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+        <record id="product_customs_handling" model="product.product">
+            <field name="name">Customs Handling Service</field>
+            <field name="categ_id" ref="product_category_transport"/>
+            <field name="type">service</field>
+            <field name="list_price">75.00</field>
+            <field name="standard_price">50.00</field>
+            <field name="description">Customs documentation and handling service</field>
+            <field name="invoice_policy">order</field>
+        </record>
+    </data>
+</odoo>

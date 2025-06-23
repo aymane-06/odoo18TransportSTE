@@ -14,3 +14,8 @@ access_transport_trip_commercial_responsible,transport.trip.commercial.responsib
 access_transport_trip_accountant,transport.trip.accountant,model_transport_trip,group_accountant,1,0,0,0
 access_transport_trip_expense_accountant,transport.trip.expense.accountant,model_transport_trip_expense,group_accountant,1,1,1,0
 access_transport_trip_revenue_accountant,transport.trip.revenue.accountant,model_transport_trip_revenue,group_accountant,1,1,1,0
+access_sale_order_transport_user,sale.order.transport.user,sale.model_sale_order,group_transport_user,1,1,1,0
+access_sale_order_transport_manager,sale.order.transport.manager,sale.model_sale_order,group_transport_manager,1,1,1,1
+access_sale_order_transport_commercial,sale.order.transport.commercial,sale.model_sale_order,group_commercial_responsible,1,1,1,0
+access_sale_order_line_transport_user,sale.order.line.transport.user,sale.model_sale_order_line,group_transport_user,1,1,1,0
+access_sale_order_line_transport_manager,sale.order.line.transport.manager,sale.model_sale_order_line,group_transport_manager,1,1,1,1

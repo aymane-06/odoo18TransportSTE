@@ -33,6 +33,17 @@
                             </group>
                         </group>
                         
+                        <!-- Sales Integration Section -->
+                        <group string="Sales Integration" invisible="not sale_order_id and not quotation_id">
+                            <group>
+                                <field name="sale_order_id" readonly="1"/>
+                                <field name="quotation_id"/>
+                            </group>
+                            <group>
+                                <field name="invoice_id" readonly="1"/>
+                            </group>
+                        </group>
+                        
                         <group string="Notes">
                             <field name="notes" placeholder="Additional notes..." nolabel="1"/>
                         </group>
@@ -56,6 +67,7 @@
                     <field name="currency_id" invisible="1"/>
                     <field name="amount" widget="monetary"/>
                     <field name="customer"/>
+                    <field name="sale_order_id" optional="hide"/>
                     <field name="payment_status" 
                            decoration-success="payment_status=='paid'" 
                            decoration-warning="payment_status=='partial'" 
@@ -75,15 +87,18 @@
                     <field name="trip_id"/>
                     <field name="revenue_type"/>
                     <field name="customer"/>
+                    <field name="sale_order_id"/>
                     <field name="invoice_number"/>
                     <filter string="Paid" name="paid" domain="[('payment_status','=','paid')]"/>
                     <filter string="Not Paid" name="not_paid" domain="[('payment_status','=','not_paid')]"/>
+                    <filter string="From Sales Orders" name="from_sales" domain="[('sale_order_id','!=',False)]"/>
                     <filter string="This Month" name="this_month" 
                             domain="[('date','&gt;=',context_today().strftime('%Y-%m-01'))]"/>
                     <group expand="0" string="Group By">
                         <filter string="Trip" name="group_trip" context="{'group_by':'trip_id'}"/>
                         <filter string="Revenue Type" name="group_type" context="{'group_by':'revenue_type'}"/>
                         <filter string="Payment Status" name="group_payment" context="{'group_by':'payment_status'}"/>
+                        <filter string="Sale Order" name="group_sale_order" context="{'group_by':'sale_order_id'}"/>
                         <filter string="Date" name="group_date" context="{'group_by':'date'}"/>
                     </group>
                 </search>
