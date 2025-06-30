@@ -38,6 +38,24 @@
                   action="action_transport_trip" 
                   sequence="30"/>
 
+        <!-- Sales Submenu -->
+        <menuitem id="menu_transport_sales" 
+                  name="Sales" 
+                  parent="menu_transport_management" 
+                  sequence="15"/>
+
+        <menuitem id="menu_transport_quotations" 
+                  name="Quotations" 
+                  parent="menu_transport_sales"
+                  action="action_transport_quotations" 
+                  sequence="10"/>
+
+        <menuitem id="menu_transport_sale_orders" 
+                  name="Sale Orders" 
+                  parent="menu_transport_sales"
+                  action="action_transport_sale_orders" 
+                  sequence="20"/>
+
         <!-- Financial Submenu -->
         <menuitem id="menu_transport_financial" 
                   name="Financial" 

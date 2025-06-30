@@ -28,22 +28,11 @@ export class TransportDashboard extends Component {
 
     async loadDashboardData() {
         try {
-            // Load trip statistics
-            const tripStats = await this.orm.readGroup(
-                "transport.trip",
-                [],
-                ["state"],
-                ["state"]
-            );
-
-            let totalTrips = 0;
-            let activeTrips = 0;
-            for (const stat of tripStats) {
-                totalTrips += stat.__count;
-                if (stat.state === "in_progress") {
-                    activeTrips += stat.__count;
-                }
-            }
+            // Load trip statistics - use searchCount for more reliable results
+            const totalTrips = await this.orm.searchCount("transport.trip", []);
+            const activeTrips = await this.orm.searchCount("transport.trip", [
+                ["state", "=", "in_progress"]
+            ]);
 
             // Load vehicle count
             const vehicleCount = await this.orm.searchCount("fleet.vehicle", []);
