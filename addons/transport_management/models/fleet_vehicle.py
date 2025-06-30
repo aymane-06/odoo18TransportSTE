@@ -50,6 +50,9 @@ class FleetVehicle(models.Model):
         'res.currency',
         default=lambda self: self.env.company.currency_id
     )
+    
+    
+    
 
     @api.depends('trip_ids', 'trip_ids.distance_km', 'trip_ids.total_revenue')
     def _compute_trip_stats(self):

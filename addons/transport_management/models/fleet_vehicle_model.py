@@ -9,6 +9,7 @@ class FleetVehicleModel(models.Model):
     # Transport specific fields for vehicle models
     vehicle_type = fields.Selection([
         ('truck', 'Truck'),
+        ('trailer', 'Trailer'),
         ('bus', 'Bus'),
         ('car', 'Car'),
         ('van', 'Van'),
@@ -59,6 +60,7 @@ class FleetVehicleModel(models.Model):
         ('manual', 'Manual'),
         ('automatic', 'Automatic'),
         ('semi_automatic', 'Semi-Automatic'),
+        ('none', 'None'),
     ], string='Transmission Type')
     
     # License requirements
@@ -173,6 +175,15 @@ class FleetVehicleModel(models.Model):
             self.license_category = 'c'  # Truck license
             self.fuel_consumption_city = 20.0  # Example values
             self.fuel_consumption_highway = 15.0
+        elif self.vehicle_type == 'trailer':
+            self.default_cargo_capacity = 15000  # Example default for trailers
+            self.default_passenger_capacity = 0  # Trailers typically do not carry passengers
+            self.engine_power = 0  # Trailers do not have an engine
+            self.transmission_type = 'none'  # Trailers are towed, not driven
+            self.requires_special_license = True
+            self.license_category = 'c1'  # Light truck license for towing
+            self.fuel_consumption_city = 0.0  # Trailers do not consume fuel directly
+            self.fuel_consumption_highway = 0.0
         elif self.vehicle_type == 'bus': 
             self.default_cargo_capacity = 5000
             self.default_passenger_capacity = 50

@@ -63,7 +63,9 @@ class TransportTrip(models.Model):
         'fleet.vehicle',
         string='Vehicle',
         required=True,
-        tracking=True
+        tracking=True,
+        domain="[('vehicle_type','!=','trailer')]",
+        help="Vehicle assigned to this trip. Must be available and of type Truck or Van."
     )
     
     driver_id = fields.Many2one(
@@ -166,6 +168,15 @@ class TransportTrip(models.Model):
         default=lambda self: self.env.company
     )
 
+    trailer_id = fields.Many2one(
+        'fleet.vehicle',
+        string='Trailer',
+        tracking=True,
+        domain="[('vehicle_type', '=', 'trailer')]",
+        help="Trailer assigned to this trip, if applicable."
+    )
+    
+
     @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
@@ -208,6 +219,76 @@ class TransportTrip(models.Model):
             if trip.departure_date and trip.arrival_date:
                 if trip.departure_date >= trip.arrival_date:
                     raise ValidationError(_("Arrival date must be after departure date."))
+
+    @api.onchange('trailer_id')
+    def _onchange_trailer_id(self):
+        """Update domain for trailer_id to show only available trailers"""
+        if self.trailer_id:
+            # Check if trailer is already assigned to another active trip
+            conflicting_trips = self.env['transport.trip'].search([
+                ('trailer_id', '=', self.trailer_id.id),
+                ('state', 'in', ['confirmed', 'in_progress']),
+                ('id', '!=', self.id)
+            ])
+            if conflicting_trips:
+                return {
+                    'warning': {
+                        'title': _('Warning'),
+                        'message': _('This trailer is already assigned to trip(s): %s') % 
+                                 ', '.join(conflicting_trips.mapped('name'))
+                    }
+                }
+
+    @api.constrains('vehicle_id', 'state')
+    def _check_vehicle_availability(self):
+        """Ensure vehicle is not assigned to multiple active trips"""
+        for trip in self:
+            if trip.vehicle_id and trip.state in ['confirmed', 'in_progress']:
+                conflicting_trips = self.env['transport.trip'].search([
+                    ('vehicle_id', '=', trip.vehicle_id.id),
+                    ('state', 'in', ['confirmed', 'in_progress']),
+                    ('id', '!=', trip.id)
+                ])
+                if conflicting_trips:
+                    raise ValidationError(
+                        _('Vehicle %s is already assigned to active trip(s): %s') % 
+                        (trip.vehicle_id.name, ', '.join(conflicting_trips.mapped('name')))
+                    )
+
+    @api.constrains('trailer_id', 'state')
+    def _check_trailer_availability(self):
+        """Ensure trailer is not assigned to multiple active trips"""
+        for trip in self:
+            if trip.trailer_id and trip.state in ['confirmed', 'in_progress']:
+                conflicting_trips = self.env['transport.trip'].search([
+                    ('trailer_id', '=', trip.trailer_id.id),
+                    ('state', 'in', ['confirmed', 'in_progress']),
+                    ('id', '!=', trip.id)
+                ])
+                if conflicting_trips:
+                    raise ValidationError(
+                        _('Trailer %s is already assigned to active trip(s): %s') % 
+                        (trip.trailer_id.name, ', '.join(conflicting_trips.mapped('name')))
+                    )
+
+    @api.onchange('vehicle_id')
+    def _onchange_vehicle_id(self):
+        """Update domain for vehicle_id to show only available vehicles"""
+        if self.vehicle_id:
+            # Check if vehicle is already assigned to another active trip
+            conflicting_trips = self.env['transport.trip'].search([
+                ('vehicle_id', '=', self.vehicle_id.id),
+                ('state', 'in', ['confirmed', 'in_progress']),
+                ('id', '!=', self.id)
+            ])
+            if conflicting_trips:
+                return {
+                    'warning': {
+                        'title': _('Warning'),
+                        'message': _('This vehicle is already assigned to trip(s): %s') % 
+                                 ', '.join(conflicting_trips.mapped('name'))
+                    }
+                }
 
     def action_confirm(self):
         self.write({'state': 'confirmed'})
@@ -264,3 +345,31 @@ class TransportTrip(models.Model):
             name = f"{trip.name} - {trip.departure_city} → {trip.destination_city}"
             result.append((trip.id, name))
         return result
+
+    @api.model
+    def _get_available_vehicle_domain(self):
+        """Get domain for available vehicles (not assigned to active trips)"""
+        occupied_vehicles = self.env['transport.trip'].search([
+            ('vehicle_id', '!=', False),
+            ('state', 'in', ['confirmed', 'in_progress']),
+            ('id', '!=', self.id if self else False)
+        ]).mapped('vehicle_id.id')
+        
+        domain = [('vehicle_type', '!=', 'trailer')]
+        if occupied_vehicles:
+            domain.append(('id', 'not in', occupied_vehicles))
+        return domain
+
+    @api.model
+    def _get_available_trailer_domain(self):
+        """Get domain for available trailers (not assigned to active trips)"""
+        occupied_trailers = self.env['transport.trip'].search([
+            ('trailer_id', '!=', False),
+            ('state', 'in', ['confirmed', 'in_progress']),
+            ('id', '!=', self.id if self else False)
+        ]).mapped('trailer_id.id')
+        
+        domain = [('vehicle_type', '=', 'trailer')]
+        if occupied_trailers:
+            domain.append(('id', 'not in', occupied_trailers))
+        return domain
