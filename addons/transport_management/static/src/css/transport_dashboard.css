@@ -1,3 +1,7 @@
+.o_transport_dashboard_wrapper {
+    width: 100%;
+}
+
 .o_transport_dashboard {
     padding: 20px;
     background-color: #f8f9fa;
@@ -17,10 +21,127 @@
 }
 
 @media (max-width: 768px) {
+    .o_transport_dashboard {
+        padding: 10px;
+        min-height: auto;
+        /* Enable touch scrolling for mobile */
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+    }
+    
+    .o_transport_dashboard .container-fluid {
+        padding: 0 5px;
+    }
+    
     .o_transport_dashboard .border-end {
         border-right: none !important;
         border-bottom: 1px solid #dee2e6 !important;
         margin-bottom: 20px;
         padding-bottom: 20px;
+    }
+    
+    .o_transport_dashboard .border-end:last-child {
+        border-bottom: none !important;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    /* Add bottom padding to ensure all content is scrollable */
+    .o_transport_dashboard .container-fluid {
+        padding-bottom: 50px;
+    }
+    
+    /* Typography adjustments */
+    .o_transport_dashboard h2 {
+        font-size: 1.5rem;
+    }
+    
+    .o_transport_dashboard h3 {
+        font-size: 1.25rem;
+    }
+    
+    .o_transport_dashboard h4 {
+        font-size: 1.1rem;
+    }
+    
+    .o_transport_dashboard .fa-2x {
+        font-size: 1.5em;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 576px) {
+    .o_transport_dashboard {
+        padding: 5px;
+    }
+    
+    .o_transport_dashboard .container-fluid {
+        padding: 0 3px;
+        padding-bottom: 60px;
+    }
+}
+
+/* Ensure the parent action container allows scrolling on mobile */
+@media (max-width: 768px) {
+    /* Target Odoo's action containers specifically */
+    .o_action_manager .o_action.o_view_controller {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    
+    .o_action_manager .o_action .o_content {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    
+    /* For touch devices */
+    body.o_touch_device .o_action_manager .o_action {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Ensure the main wrapper allows content overflow */
+    .o_main_content {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Force the dashboard to be scrollable */
+    .o_transport_dashboard {
+        position: relative !important;
+        overflow: visible !important;
+    }
+}
+
+/* Mobile scrolling fix - aggressive approach */
+@media (max-width: 768px) {
+    /* Force all containers in the hierarchy to allow scrolling */
+    .o_web_client,
+    .o_main,
+    .o_main_content,
+    .o_action_manager,
+    .o_action_manager .o_action,
+    .o_action_manager .o_action .o_content {
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+    }
+    
+    /* Ensure body can scroll */
+    html, body {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        height: auto !important;
+    }
+    
+    /* Force the transport dashboard to take full space */
+    .o_transport_dashboard {
+        min-height: 150vh !important; /* Force longer content */
+        height: auto !important;
     }
 }

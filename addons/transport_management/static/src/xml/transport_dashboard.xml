@@ -18,7 +18,7 @@
 
                 <div t-else="" class="row">
                     <!-- Statistics Cards -->
-                    <div class="col-md-3 mb-4">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="text-primary mb-2">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb-4">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="text-warning mb-2">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb-4">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="text-success mb-2">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb-4">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="text-info mb-2">
@@ -86,7 +86,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12 text-center mb-3">
                                         <div class="border-end">
                                             <div class="text-success mb-2">
                                                 <i class="fa fa-arrow-up fa-2x"></i>
@@ -98,7 +98,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12 text-center mb-3">
                                         <div class="border-end">
                                             <div class="text-danger mb-2">
                                                 <i class="fa fa-arrow-down fa-2x"></i>
@@ -110,7 +110,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12 text-center mb-3">
                                         <div t-att-class="state.stats.monthly_profit >= 0 ? 'text-success' : 'text-danger'" class="mb-2">
                                             <i t-att-class="state.stats.monthly_profit >= 0 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-down'" class="fa-2x"></i>
                                         </div>
@@ -123,29 +123,29 @@
                     </div>
 
                     <!-- Quick Actions -->
-                    <div class="col-12">
+                    <div class="col-12 mb-5">
                         <div class="card border-0 shadow-sm">
                             <div class="card-header bg-white">
                                 <h4 class="mb-0">Quick Actions</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-3 mb-2">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-primary w-100" t-on-click="openTrips">
                                             <i class="fa fa-plus me-2"></i>New Trip
                                         </button>
                                     </div>
-                                    <div class="col-md-3 mb-2">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-success w-100" t-on-click="openVehicles">
                                             <i class="fa fa-car me-2"></i>Manage Vehicles
                                         </button>
                                     </div>
-                                    <div class="col-md-3 mb-2">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-info w-100" t-on-click="openDrivers">
                                             <i class="fa fa-user me-2"></i>Manage Drivers
                                         </button>
                                     </div>
-                                    <div class="col-md-3 mb-2">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-warning w-100" t-on-click="openExpenses">
                                             <i class="fa fa-money me-2"></i>Add Expense
                                         </button>
