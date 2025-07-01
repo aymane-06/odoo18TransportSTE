@@ -36,9 +36,9 @@
                         
                         <group>
                             <group name="trip_info" string="Trip Information" col="2">
-                                <field name="departure_location"/>
+                                <field name="departure_country_id"/>
                                 <field name="departure_city"/>
-                                <field name="destination_location"/>
+                                <field name="destination_country_id"/>
                                 <field name="destination_city"/>
                                 <field name="trip_type"/>
                                 <field name="service_type"/>
@@ -111,9 +111,9 @@
             <field name="arch" type="xml">
                 <list string="Transport Trips" multi_edit="1" sample="1">
                     <field name="name"/>
-                    <field name="departure_location"/>
+                    <field name="departure_country_id"/>
                     <field name="departure_city"/>
-                    <field name="destination_location"/>
+                    <field name="destination_country_id"/>
                     <field name="destination_city"/>
                     <field name="departure_date"/>
                     <field name="arrival_date" optional="hide"/>
@@ -140,8 +140,8 @@
             <field name="arch" type="xml">
                 <kanban default_group_by="state" sample="1">
                     <field name="name"/>
-                    <field name="departure_location"/>
-                    <field name="destination_location"/>
+                    <field name="departure_country_id"/>
+                    <field name="destination_country_id"/>
                     <field name="departure_date"/>
                     <field name="driver_id"/>
                     <field name="vehicle_id"/>
@@ -168,8 +168,8 @@
                                         <div class="row mb4">
                                             <div class="col-12">
                                                 <i class="fa fa-map-marker"/> 
-                                                <strong><t t-esc="record.departure_location.value"/></strong> → 
-                                                <strong><t t-esc="record.destination_location.value"/></strong>
+                                                <strong><t t-esc="record.departure_country_id.value"/></strong> → 
+                                                <strong><t t-esc="record.destination_country_id.value"/></strong>
                                             </div>
                                         </div>
                                         <div class="row mb4">
@@ -216,7 +216,9 @@
             <field name="arch" type="xml">
                 <search string="Search Trips">
                     <field name="name" string="Trip Name"/>
+                    <field name="departure_country_id" string="From Country"/>
                     <field name="departure_city" string="From City"/>
+                    <field name="destination_country_id" string="To Country"/>
                     <field name="destination_city" string="To City"/>
                     <field name="driver_id" string="Driver"/>
                     <field name="vehicle_id" string="Vehicle"/>
@@ -239,6 +241,8 @@
                         <filter string="Vehicle" name="group_vehicle" context="{'group_by':'vehicle_id'}"/>
                         <filter string="Departure Date" name="group_departure_date" context="{'group_by':'departure_date:month'}"/>
                         <filter string="Trip Type" name="group_trip_type" context="{'group_by':'trip_type'}"/>
+                        <filter string="Departure Country" name="group_departure_country" context="{'group_by':'departure_country_id'}"/>
+                        <filter string="Destination Country" name="group_destination_country" context="{'group_by':'destination_country_id'}"/>
                     </group>
                 </search>
             </field>

@@ -91,7 +91,7 @@
                                             <div class="text-success mb-2">
                                                 <i class="fa fa-arrow-up fa-2x"></i>
                                             </div>
-                                            <h4 class="text-success" t-esc="state.stats.monthly_revenue"/>
+                                            <h4 class="text-success" t-esc="formatCurrency(state.stats.monthly_revenue)"/>
                                             <p class="text-muted">Monthly Revenue</p>
                                             <button class="btn btn-sm btn-success" t-on-click="openRevenues">
                                                 View Revenues
@@ -103,7 +103,7 @@
                                             <div class="text-danger mb-2">
                                                 <i class="fa fa-arrow-down fa-2x"></i>
                                             </div>
-                                            <h4 class="text-danger" t-esc="state.stats.monthly_expenses"/>
+                                            <h4 class="text-danger" t-esc="formatCurrency(state.stats.monthly_expenses)"/>
                                             <p class="text-muted">Monthly Expenses</p>
                                             <button class="btn btn-sm btn-danger" t-on-click="openExpenses">
                                                 View Expenses
@@ -114,7 +114,7 @@
                                         <div t-att-class="state.stats.monthly_profit >= 0 ? 'text-success' : 'text-danger'" class="mb-2">
                                             <i t-att-class="state.stats.monthly_profit >= 0 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-down'" class="fa-2x"></i>
                                         </div>
-                                        <h4 t-att-class="state.stats.monthly_profit >= 0 ? 'text-success' : 'text-danger'" t-esc="state.stats.monthly_profit"/>
+                                        <h4 t-att-class="state.stats.monthly_profit >= 0 ? 'text-success' : 'text-danger'" t-esc="formatCurrency(state.stats.monthly_profit)"/>
                                         <p class="text-muted">Monthly Profit</p>
                                     </div>
                                 </div>

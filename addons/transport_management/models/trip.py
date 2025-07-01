@@ -19,15 +19,21 @@ class TransportTrip(models.Model):
     )
     
     # Basic Trip Information
-    departure_location = fields.Selection([
-        ('morocco', 'Morocco'),
-        ('france', 'France'),
-    ], string='Departure', required=True, tracking=True)
+    departure_country_id = fields.Many2one(
+        'res.country',
+        string='Departure Country',
+        required=True,
+        tracking=True,
+        help="Country where the trip starts"
+    )
     
-    destination_location = fields.Selection([
-        ('morocco', 'Morocco'),
-        ('france', 'France'),
-    ], string='Destination', required=True, tracking=True)
+    destination_country_id = fields.Many2one(
+        'res.country',
+        string='Destination Country',
+        required=True,
+        tracking=True,
+        help="Country where the trip ends"
+    )
     
     departure_city = fields.Char(string='Departure City', required=True)
     destination_city = fields.Char(string='Destination City', required=True)
@@ -207,11 +213,11 @@ class TransportTrip(models.Model):
             else:
                 trip.duration_days = 0.0
 
-    @api.constrains('departure_location', 'destination_location')
+    @api.constrains('departure_country_id', 'destination_country_id')
     def _check_locations(self):
         for trip in self:
-            if trip.departure_location == trip.destination_location:
-                raise ValidationError(_("Departure and destination locations must be different."))
+            if trip.departure_country_id == trip.destination_country_id:
+                raise ValidationError(_("Departure and destination countries must be different."))
 
     @api.constrains('departure_date', 'arrival_date')
     def _check_dates(self):
@@ -342,7 +348,9 @@ class TransportTrip(models.Model):
     def name_get(self):
         result = []
         for trip in self:
-            name = f"{trip.name} - {trip.departure_city} → {trip.destination_city}"
+            departure = f"{trip.departure_city}, {trip.departure_country_id.name}" if trip.departure_country_id else trip.departure_city
+            destination = f"{trip.destination_city}, {trip.destination_country_id.name}" if trip.destination_country_id else trip.destination_city
+            name = f"{trip.name} - {departure} → {destination}"
             result.append((trip.id, name))
         return result
 

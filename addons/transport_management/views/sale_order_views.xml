@@ -19,8 +19,8 @@
                             <group name="trip_info" string="Trip Information">
                                 <field name="trip_id"/>
                                 <field name="trip_type"/>
-                                <field name="departure_location"/>
-                                <field name="destination_location"/>
+                                <field name="departure_country_id"/>
+                                <field name="destination_country_id"/>
                             </group>
                             <group name="dates" string="Schedule">
                                 <field name="departure_date"/>
@@ -79,8 +79,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="is_transport_service" optional="hide"/>
-                    <field name="departure_location" optional="hide"/>
-                    <field name="destination_location" optional="hide"/>
+                    <field name="departure_country_id" optional="hide"/>
+                    <field name="destination_country_id" optional="hide"/>
                 </xpath>
             </field>
         </record>

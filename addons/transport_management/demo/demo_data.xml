@@ -95,8 +95,8 @@
         <!-- Demo Trips -->
         <record id="demo_trip_1" model="transport.trip">
             <field name="name">TRIP/0001/25</field>
-            <field name="departure_location">morocco</field>
-            <field name="destination_location">france</field>
+            <field name="departure_country_id" ref="base.ma"/>
+            <field name="destination_country_id" ref="base.fr"/>
             <field name="departure_city">Casablanca</field>
             <field name="destination_city">Paris</field>
             <field name="trip_type">round_trip</field>
@@ -115,8 +115,8 @@
 
         <record id="demo_trip_2" model="transport.trip">
             <field name="name">TRIP/0002/25</field>
-            <field name="departure_location">france</field>
-            <field name="destination_location">morocco</field>
+            <field name="departure_country_id" ref="base.fr"/>
+            <field name="destination_country_id" ref="base.ma"/>
             <field name="departure_city">Marseille</field>
             <field name="destination_city">Tangier</field>
             <field name="trip_type">one_way</field>

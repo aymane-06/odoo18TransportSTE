@@ -21,8 +21,8 @@
                             <h2>Trip Report: <span t-field="trip.name"/></h2>
                             <div class="row mt32 mb32">
                                 <div class="col-6">
-                                    <strong>Departure:</strong> <span t-field="trip.departure_city"/> (<span t-field="trip.departure_location"/>)<br/>
-                                    <strong>Destination:</strong> <span t-field="trip.destination_city"/> (<span t-field="trip.destination_location"/>)<br/>
+                                    <strong>Departure:</strong> <span t-field="trip.departure_city"/> (<span t-field="trip.departure_country_id"/>)<br/>
+                                    <strong>Destination:</strong> <span t-field="trip.destination_city"/> (<span t-field="trip.destination_country_id"/>)<br/>
                                     <strong>Date:</strong> <span t-field="trip.departure_date"/><br/>
                                     <strong>Service Type:</strong> <span t-field="trip.service_type"/><br/>
                                 </div>

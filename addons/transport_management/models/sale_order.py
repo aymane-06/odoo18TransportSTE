@@ -20,14 +20,16 @@ class SaleOrder(models.Model):
         help="Trip associated with this transport service"
     )
     
-    departure_location = fields.Char(
-        string='Departure Location',
-        default='Morocco'
+    departure_country_id = fields.Many2one(
+        'res.country',
+        string='Departure Country',
+        help="Country where the trip starts"
     )
     
-    destination_location = fields.Char(
-        string='Destination Location', 
-        default='France'
+    destination_country_id = fields.Many2one(
+        'res.country',
+        string='Destination Country',
+        help="Country where the trip ends"
     )
     
     departure_date = fields.Date(string='Departure Date')
@@ -79,8 +81,8 @@ class SaleOrder(models.Model):
     def _onchange_trip_id(self):
         """Update locations and dates based on selected trip"""
         if self.trip_id:
-            self.departure_location = self.trip_id.departure_location or 'Morocco'
-            self.destination_location = self.trip_id.destination_location or 'France'
+            self.departure_country_id = self.trip_id.departure_country_id
+            self.destination_country_id = self.trip_id.destination_country_id
             self.departure_date = self.trip_id.departure_date
             self.return_date = self.trip_id.return_date
     

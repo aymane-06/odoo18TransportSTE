@@ -20,6 +20,7 @@ export class TransportDashboard extends Component {
                 monthly_expenses: 0,
                 monthly_profit: 0,
             },
+            currency: null,
             loading: true,
         });
 
@@ -28,6 +29,9 @@ export class TransportDashboard extends Component {
 
     async loadDashboardData() {
         try {
+            // Load system currency first
+            await this.getSystemCurrency();
+
             // Load trip statistics - use searchCount for more reliable results
             const totalTrips = await this.orm.searchCount("transport.trip", []);
             const activeTrips = await this.orm.searchCount("transport.trip", [
@@ -84,6 +88,59 @@ export class TransportDashboard extends Component {
             console.error("Error loading dashboard data:", error);
         } finally {
             this.state.loading = false;
+        }
+    }
+
+    async getSystemCurrency() {
+        try {
+            // Get the current company
+            const companies = await this.orm.searchRead(
+                "res.company",
+                [["id", "=", 1]], // Usually company ID 1 is the main company
+                ["currency_id"]
+            );
+
+            if (companies.length > 0) {
+                const currencyId = companies[0].currency_id[0];
+                
+                // Get currency details
+                const currencies = await this.orm.searchRead(
+                    "res.currency",
+                    [["id", "=", currencyId]],
+                    ["name", "symbol", "position"]
+                );
+
+                if (currencies.length > 0) {
+                    this.state.currency = {
+                        name: currencies[0].name,
+                        symbol: currencies[0].symbol,
+                        position: currencies[0].position
+                    };
+                }
+            }
+        } catch (error) {
+            console.error("Error loading currency:", error);
+            // Fallback to USD
+            this.state.currency = {
+                name: "USD",
+                symbol: "$",
+                position: "before"
+            };
+        }
+    }
+
+    formatCurrency(amount) {
+        if (!this.state.currency) return amount.toString();
+        
+        const formattedAmount = amount.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        if (this.state.currency.position === 'before') {
+            return `${this.state.currency.symbol}${formattedAmount}`;
+        } else {
+            return `${formattedAmount}${this.state.currency.symbol}`;
         }
     }
 
