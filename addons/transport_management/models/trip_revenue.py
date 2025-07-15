@@ -11,78 +11,78 @@ class TransportTripRevenue(models.Model):
 
     trip_id = fields.Many2one(
         'transport.trip',
-        string='Trip',
+        string=_('Trip'),
         required=True,
         ondelete='cascade'
     )
     
-    name = fields.Char(string='Description', required=True)
+    name = fields.Char(string=_('Description'), required=True)
     
     revenue_type = fields.Selection([
-        ('cargo_transport', 'Cargo Transport'),
-        ('passenger_transport', 'Passenger Transport'),
-        ('extra_service', 'Extra Service'),
-        ('insurance_coverage', 'Insurance Coverage'),
-        ('other', 'Other'),
-    ], string='Revenue Type', required=True)
+        ('cargo_transport', _('Cargo Transport')),
+        ('passenger_transport', _('Passenger Transport')),
+        ('extra_service', _('Extra Service')),
+        ('insurance_coverage', _('Insurance Coverage')),
+        ('other', _('Other')),
+    ], string=_('Revenue Type'), required=True)
     
     amount = fields.Monetary(
-        string='Amount',
+        string=_('Amount'),
         required=True,
         currency_field='currency_id'
     )
     
     currency_id = fields.Many2one(
         'res.currency',
-        string='Currency',
+        string=_('Currency'),
         default=lambda self: self.env.company.currency_id
     )
     
     date = fields.Date(
-        string='Date',
+        string=_('Date'),
         required=True,
         default=fields.Date.today
     )
     
-    customer = fields.Many2one('res.partner', string='Customer')
+    customer = fields.Many2one('res.partner', string=_('Customer'))
     
     # Sales Integration Fields
     sale_order_id = fields.Many2one(
         'sale.order', 
-        string='Sale Order', 
+        string=_('Sale Order'), 
         tracking=True,
-        help="Sale order that generated this revenue"
+        help=_("Sale order that generated this revenue")
     )
     
     quotation_id = fields.Many2one(
         'sale.order', 
-        string='Related Quotation',
+        string=_('Related Quotation'),
         domain=[('state', 'in', ['draft', 'sent'])],
-        help="Original quotation if different from sale order"
+        help=_("Original quotation if different from sale order")
     )
     
     invoice_id = fields.Many2one(
         'account.move', 
-        string='Invoice', 
+        string=_('Invoice'), 
         tracking=True,
-        help="Invoice generated from the sale order"
+        help=_("Invoice generated from the sale order")
     )
     
-    invoice_number = fields.Char(string='Invoice Number')
+    invoice_number = fields.Char(string=_('Invoice Number'))
     
     payment_status = fields.Selection([
-        ('not_paid', 'Not Paid'),
-        ('partial', 'Partially Paid'),
-        ('paid', 'Paid'),
-    ], string='Payment Status', default='not_paid')
+        ('not_paid', _('Not Paid')),
+        ('partial', _('Partially Paid')),
+        ('paid', _('Paid')),
+    ], string=_('Payment Status'), default='not_paid')
     
-    payment_date = fields.Date(string='Payment Date')
+    payment_date = fields.Date(string=_('Payment Date'))
     
-    notes = fields.Text(string='Notes')
+    notes = fields.Text(string=_('Notes'))
     
     company_id = fields.Many2one(
         'res.company',
-        string='Company',
+        string=_('Company'),
         default=lambda self: self.env.company
     )
 
@@ -90,13 +90,13 @@ class TransportTripRevenue(models.Model):
     def _onchange_revenue_type(self):
         if self.revenue_type:
             revenue_names = {
-                'cargo_transport': 'Cargo Transport Fee',
-                'passenger_transport': 'Passenger Transport Fee',
-                'extra_service': 'Extra Service Fee',
-                'insurance_coverage': 'Insurance Coverage Fee',
-                'other': 'Other Revenue',
+                'cargo_transport': _('Cargo Transport Fee'),
+                'passenger_transport': _('Passenger Transport Fee'),
+                'extra_service': _('Extra Service Fee'),
+                'insurance_coverage': _('Insurance Coverage Fee'),
+                'other': _('Other Revenue'),
             }
-            self.name = revenue_names.get(self.revenue_type, 'Revenue')
+            self.name = revenue_names.get(self.revenue_type, _('Revenue'))
 
     @api.model
     def create_from_sale_order(self, sale_order):
@@ -111,7 +111,7 @@ class TransportTripRevenue(models.Model):
                 revenue_type = 'passenger_transport'
         
         return self.create({
-            'name': f"Revenue from {sale_order.name}",
+            'name': _("Revenue from %s") % sale_order.name,
             'sale_order_id': sale_order.id,
             'amount': sale_order.amount_total,
             'customer': sale_order.partner_id.id,
@@ -136,4 +136,4 @@ class TransportTripRevenue(models.Model):
             else:
                 self.date = fields.Date.today()
             if not self.name:
-                self.name = f"Revenue from {self.sale_order_id.name}"
+                self.name = _("Revenue from %s") % self.sale_order_id.name

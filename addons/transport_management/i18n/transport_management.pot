@@ -1,0 +1,393 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * transport_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-15 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: transport_management
+#: model:ir.model,name:transport_management.model_transport_trip_expense
+msgid "Trip Expense"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model,name:transport_management.model_transport_trip_revenue
+msgid "Trip Revenue"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__trip_id
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__trip_id
+msgid "Trip"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__name
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__name
+msgid "Description"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__expense_type
+msgid "Expense Type"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__revenue_type
+msgid "Revenue Type"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__amount
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__amount
+msgid "Amount"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__currency_id
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__date
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__date
+msgid "Date"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__location
+msgid "Location"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__supplier
+msgid "Supplier/Vendor"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__receipt_number
+msgid "Receipt Number"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__notes
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__notes
+msgid "Notes"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__vehicle_id
+msgid "Vehicle"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__driver_id
+msgid "Driver"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_expense__company_id
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__company_id
+msgid "Company"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__customer
+msgid "Customer"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__sale_order_id
+msgid "Sale Order"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__quotation_id
+msgid "Related Quotation"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__invoice_id
+msgid "Invoice"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__invoice_number
+msgid "Invoice Number"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__payment_status
+msgid "Payment Status"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_trip_revenue__payment_date
+msgid "Payment Date"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,help:transport_management.field_transport_trip_revenue__sale_order_id
+msgid "Sale order that generated this revenue"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,help:transport_management.field_transport_trip_revenue__quotation_id
+msgid "Original quotation if different from sale order"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.model.fields,help:transport_management.field_transport_trip_revenue__invoice_id
+msgid "Invoice generated from the sale order"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Fuel"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Toll/Péages"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Customs/Douane"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Accommodation/Hébergement"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Meals/Repas"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Maintenance"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Insurance"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Parking"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+msgid "Driver Allowance"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.expense,expense_type:0
+#: selection:transport.trip.revenue,revenue_type:0
+msgid "Other"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.revenue,revenue_type:0
+msgid "Cargo Transport"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.revenue,revenue_type:0
+msgid "Passenger Transport"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.revenue,revenue_type:0
+msgid "Extra Service"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.revenue,revenue_type:0
+msgid "Insurance Coverage"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.revenue,payment_status:0
+msgid "Not Paid"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.revenue,payment_status:0
+msgid "Partially Paid"
+msgstr ""
+
+#. module: transport_management
+#: selection:transport.trip.revenue,payment_status:0
+msgid "Paid"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_expense.py:0
+msgid "Expense"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_expense.py:0
+msgid "Other Expense"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_revenue.py:0
+msgid "Revenue"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_revenue.py:0
+msgid "Cargo Transport Fee"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_revenue.py:0
+msgid "Passenger Transport Fee"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_revenue.py:0
+msgid "Extra Service Fee"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_revenue.py:0
+msgid "Insurance Coverage Fee"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_revenue.py:0
+msgid "Other Revenue"
+msgstr ""
+
+#. module: transport_management
+#: code:addons/transport_management/models/trip_revenue.py:0
+msgid "Revenue from %s"
+msgstr ""
+
+#. module: transport_management
+#: model:ir.actions.client,name:transport_management.action_transport_dashboard
+msgid "Transport Dashboard"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Transport Management Dashboard"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Overview of your transport operations"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Loading..."
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Total Trips"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "View All"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Active Trips"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "View Active"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Vehicles"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Manage Fleet"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Drivers"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Manage Drivers"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Monthly Financial Overview"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Monthly Revenue"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "View Revenues"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Monthly Expenses"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "View Expenses"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Monthly Profit"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Quick Actions"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "New Trip"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Manage Vehicles"
+msgstr ""
+
+#. module: transport_management
+#: view:transport_dashboard:0
+msgid "Add Expense"
+msgstr ""

@@ -10,6 +10,7 @@ export class TransportDashboard extends Component {
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
+        
         this.state = useState({
             stats: {
                 total_trips: 0,
@@ -22,9 +23,72 @@ export class TransportDashboard extends Component {
             },
             currency: null,
             loading: true,
+            labels: {}
         });
 
+        // Initialize labels after getting user context
+        this.initializeLabels();
         this.loadDashboardData();
+    }
+
+    initializeLabels() {
+        // Simple translation - just use French for now
+        // You can change this to English by setting isFrench = false
+        const isFrench = true;
+        
+        const translate = (text) => {
+            if (!isFrench) return text;
+            
+            const TRANSLATIONS = {
+                'Transport Management Dashboard': 'Tableau de bord de gestion du transport',
+                'Overview of your transport operations': 'Aperçu de vos opérations de transport',
+                'Loading...': 'Chargement...',
+                'Total Trips': 'Voyages totaux',
+                'View All': 'Voir tout',
+                'Active Trips': 'Voyages actifs',
+                'View Active': 'Voir les actifs',
+                'Vehicles': 'Véhicules',
+                'Manage Fleet': 'Gérer la flotte',
+                'Drivers': 'Chauffeurs',
+                'Manage Drivers': 'Gérer les chauffeurs',
+                'Monthly Financial Overview': 'Aperçu financier mensuel',
+                'Monthly Revenue': 'Revenus mensuels',
+                'View Revenues': 'Voir les revenus',
+                'Monthly Expenses': 'Dépenses mensuelles',
+                'View Expenses': 'Voir les dépenses',
+                'Monthly Profit': 'Profit mensuel',
+                'Quick Actions': 'Actions rapides',
+                'New Trip': 'Nouveau voyage',
+                'Manage Vehicles': 'Gérer les véhicules',
+                'Add Expense': 'Ajouter une dépense',
+            };
+
+            return TRANSLATIONS[text] || text;
+        };
+
+        this.state.labels = {
+            dashboard_title: translate("Transport Management Dashboard"),
+            overview_subtitle: translate("Overview of your transport operations"),
+            loading: translate("Loading..."),
+            total_trips: translate("Total Trips"),
+            view_all: translate("View All"),
+            active_trips: translate("Active Trips"),
+            view_active: translate("View Active"),
+            vehicles: translate("Vehicles"),
+            manage_fleet: translate("Manage Fleet"),
+            drivers: translate("Drivers"),
+            manage_drivers: translate("Manage Drivers"),
+            monthly_financial_overview: translate("Monthly Financial Overview"),
+            monthly_revenue: translate("Monthly Revenue"),
+            view_revenues: translate("View Revenues"),
+            monthly_expenses: translate("Monthly Expenses"),
+            view_expenses: translate("View Expenses"),
+            monthly_profit: translate("Monthly Profit"),
+            quick_actions: translate("Quick Actions"),
+            new_trip: translate("New Trip"),
+            manage_vehicles: translate("Manage Vehicles"),
+            add_expense: translate("Add Expense"),
+        };
     }
 
     async loadDashboardData() {
@@ -165,4 +229,5 @@ export class TransportDashboard extends Component {
     }
 }
 
+// Register the component with the action registry
 registry.category("actions").add("transport_dashboard", TransportDashboard);

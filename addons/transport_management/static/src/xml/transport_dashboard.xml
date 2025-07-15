@@ -5,14 +5,14 @@
             <div class="container-fluid">
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h2 class="mb-0">Transport Management Dashboard</h2>
-                        <p class="text-muted">Overview of your transport operations</p>
+                        <h2 class="mb-0" t-esc="state.labels.dashboard_title"/>
+                        <p class="text-muted" t-esc="state.labels.overview_subtitle"/>
                     </div>
                 </div>
 
                 <div t-if="state.loading" class="text-center">
                     <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="visually-hidden" t-esc="state.labels.loading"/>
                     </div>
                 </div>
 
@@ -25,9 +25,8 @@
                                     <i class="fa fa-truck fa-2x"></i>
                                 </div>
                                 <h3 class="card-title" t-esc="state.stats.total_trips"/>
-                                <p class="card-text text-muted">Total Trips</p>
-                                <button class="btn btn-sm btn-outline-primary" t-on-click="openTrips">
-                                    View All
+                                <p class="card-text text-muted" t-esc="state.labels.total_trips"/>
+                                <button class="btn btn-sm btn-outline-primary" t-on-click="openTrips" t-esc="state.labels.view_all">
                                 </button>
                             </div>
                         </div>
@@ -40,9 +39,8 @@
                                     <i class="fa fa-road fa-2x"></i>
                                 </div>
                                 <h3 class="card-title" t-esc="state.stats.active_trips"/>
-                                <p class="card-text text-muted">Active Trips</p>
-                                <button class="btn btn-sm btn-outline-warning" t-on-click="openTrips">
-                                    View Active
+                                <p class="card-text text-muted" t-esc="state.labels.active_trips"/>
+                                <button class="btn btn-sm btn-outline-warning" t-on-click="openTrips" t-esc="state.labels.view_active">
                                 </button>
                             </div>
                         </div>
@@ -55,9 +53,8 @@
                                     <i class="fa fa-car fa-2x"></i>
                                 </div>
                                 <h3 class="card-title" t-esc="state.stats.total_vehicles"/>
-                                <p class="card-text text-muted">Vehicles</p>
-                                <button class="btn btn-sm btn-outline-success" t-on-click="openVehicles">
-                                    Manage Fleet
+                                <p class="card-text text-muted" t-esc="state.labels.vehicles"/>
+                                <button class="btn btn-sm btn-outline-success" t-on-click="openVehicles" t-esc="state.labels.manage_fleet">
                                 </button>
                             </div>
                         </div>
@@ -70,9 +67,8 @@
                                     <i class="fa fa-users fa-2x"></i>
                                 </div>
                                 <h3 class="card-title" t-esc="state.stats.total_drivers"/>
-                                <p class="card-text text-muted">Drivers</p>
-                                <button class="btn btn-sm btn-outline-info" t-on-click="openDrivers">
-                                    Manage Drivers
+                                <p class="card-text text-muted" t-esc="state.labels.drivers"/>
+                                <button class="btn btn-sm btn-outline-info" t-on-click="openDrivers" t-esc="state.labels.manage_drivers">
                                 </button>
                             </div>
                         </div>
@@ -82,7 +78,7 @@
                     <div class="col-12 mb-4">
                         <div class="card border-0 shadow-sm">
                             <div class="card-header bg-white">
-                                <h4 class="mb-0">Monthly Financial Overview</h4>
+                                <h4 class="mb-0" t-esc="state.labels.monthly_financial_overview"/>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -92,9 +88,8 @@
                                                 <i class="fa fa-arrow-up fa-2x"></i>
                                             </div>
                                             <h4 class="text-success" t-esc="formatCurrency(state.stats.monthly_revenue)"/>
-                                            <p class="text-muted">Monthly Revenue</p>
-                                            <button class="btn btn-sm btn-success" t-on-click="openRevenues">
-                                                View Revenues
+                                            <p class="text-muted" t-esc="state.labels.monthly_revenue"/>
+                                            <button class="btn btn-sm btn-success" t-on-click="openRevenues" t-esc="state.labels.view_revenues">
                                             </button>
                                         </div>
                                     </div>
@@ -104,9 +99,8 @@
                                                 <i class="fa fa-arrow-down fa-2x"></i>
                                             </div>
                                             <h4 class="text-danger" t-esc="formatCurrency(state.stats.monthly_expenses)"/>
-                                            <p class="text-muted">Monthly Expenses</p>
-                                            <button class="btn btn-sm btn-danger" t-on-click="openExpenses">
-                                                View Expenses
+                                            <p class="text-muted" t-esc="state.labels.monthly_expenses"/>
+                                            <button class="btn btn-sm btn-danger" t-on-click="openExpenses" t-esc="state.labels.view_expenses">
                                             </button>
                                         </div>
                                     </div>
@@ -115,7 +109,7 @@
                                             <i t-att-class="state.stats.monthly_profit >= 0 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-down'" class="fa-2x"></i>
                                         </div>
                                         <h4 t-att-class="state.stats.monthly_profit >= 0 ? 'text-success' : 'text-danger'" t-esc="formatCurrency(state.stats.monthly_profit)"/>
-                                        <p class="text-muted">Monthly Profit</p>
+                                        <p class="text-muted" t-esc="state.labels.monthly_profit"/>
                                     </div>
                                 </div>
                             </div>
@@ -126,28 +120,28 @@
                     <div class="col-12 mb-5">
                         <div class="card border-0 shadow-sm">
                             <div class="card-header bg-white">
-                                <h4 class="mb-0">Quick Actions</h4>
+                                <h4 class="mb-0" t-esc="state.labels.quick_actions"/>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-primary w-100" t-on-click="openTrips">
-                                            <i class="fa fa-plus me-2"></i>New Trip
+                                            <i class="fa fa-plus me-2"></i><span t-esc="state.labels.new_trip"/>
                                         </button>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-success w-100" t-on-click="openVehicles">
-                                            <i class="fa fa-car me-2"></i>Manage Vehicles
+                                            <i class="fa fa-car me-2"></i><span t-esc="state.labels.manage_vehicles"/>
                                         </button>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-info w-100" t-on-click="openDrivers">
-                                            <i class="fa fa-user me-2"></i>Manage Drivers
+                                            <i class="fa fa-user me-2"></i><span t-esc="state.labels.manage_drivers"/>
                                         </button>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-2">
                                         <button class="btn btn-warning w-100" t-on-click="openExpenses">
-                                            <i class="fa fa-money me-2"></i>Add Expense
+                                            <i class="fa fa-money me-2"></i><span t-esc="state.labels.add_expense"/>
                                         </button>
                                     </div>
                                 </div>

@@ -50,9 +50,9 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'transport_management/static/src/css/transport_dashboard.css',
             'transport_management/static/src/js/transport_dashboard.js',
             'transport_management/static/src/xml/transport_dashboard.xml',
+            'transport_management/static/src/css/transport_dashboard.css',
         ],
     },
     'installable': True,
