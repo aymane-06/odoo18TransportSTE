@@ -428,3 +428,402 @@ msgstr "Gérer les véhicules"
 #: view:transport_dashboard:0
 msgid "Add Expense"
 msgstr "Ajouter une dépense"
+
+#. module: transport_management
+#: model:ir.model,name:transport_management.model_transport_driver_report
+msgid "Driver Report"
+msgstr "Rapport de conducteur"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__name
+msgid "Report Reference"
+msgstr "Référence du rapport"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__report_date
+msgid "Report Date"
+msgstr "Date du rapport"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__driver_id
+msgid "Driver"
+msgstr "Conducteur"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__trip_id
+msgid "Related Trip"
+msgstr "Voyage associé"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__vehicle_id
+msgid "Vehicle"
+msgstr "Véhicule"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__report_type
+msgid "Report Type"
+msgstr "Type de rapport"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__priority
+msgid "Priority"
+msgstr "Priorité"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__subject
+msgid "Subject"
+msgstr "Sujet"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__description
+msgid "Description"
+msgstr "Description"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__location
+msgid "Location"
+msgstr "Lieu"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__country_id
+msgid "Country"
+msgstr "Pays"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__state
+msgid "Status"
+msgstr "Statut"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__acknowledged_by
+msgid "Acknowledged By"
+msgstr "Accusé de réception par"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__acknowledged_date
+msgid "Acknowledged Date"
+msgstr "Date d'accusé de réception"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__resolved_by
+msgid "Resolved By"
+msgstr "Résolu par"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__resolved_date
+msgid "Resolved Date"
+msgstr "Date de résolution"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__resolution_notes
+msgid "Resolution Notes"
+msgstr "Notes de résolution"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__attachment_ids
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__weather_conditions
+msgid "Weather Conditions"
+msgstr "Conditions météorologiques"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__witnesses
+msgid "Witnesses"
+msgstr "Témoins"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__police_report
+msgid "Police Report Filed"
+msgstr "Rapport de police déposé"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__police_report_number
+msgid "Police Report Number"
+msgstr "Numéro du rapport de police"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__insurance_claim
+msgid "Insurance Claim"
+msgstr "Demande d'assurance"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__insurance_claim_number
+msgid "Insurance Claim Number"
+msgstr "Numéro de demande d'assurance"
+
+#. module: transport_management
+#: model:ir.model.fields,field_description:transport_management.field_transport_driver_report__days_since_report
+msgid "Days Since Report"
+msgstr "Jours depuis le rapport"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,incident
+msgid "Incident"
+msgstr "Incident"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,accident
+msgid "Accident"
+msgstr "Accident"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,maintenance
+msgid "Maintenance Issue"
+msgstr "Problème de maintenance"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,fuel
+msgid "Fuel Report"
+msgstr "Rapport de carburant"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,customer
+msgid "Customer Issue"
+msgstr "Problème client"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,route
+msgid "Route Issue"
+msgstr "Problème de route"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,security
+msgid "Security Issue"
+msgstr "Problème de sécurité"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__report_type,other
+msgid "Other"
+msgstr "Autre"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__priority,low
+msgid "Low"
+msgstr "Faible"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__priority,medium
+msgid "Medium"
+msgstr "Moyenne"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__priority,high
+msgid "High"
+msgstr "Élevée"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__priority,urgent
+msgid "Urgent"
+msgstr "Urgent"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__state,draft
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__state,submitted
+msgid "Submitted"
+msgstr "Soumis"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__state,acknowledged
+msgid "Acknowledged"
+msgstr "Accusé de réception"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__state,in_progress
+msgid "In Progress"
+msgstr "En cours"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__state,resolved
+msgid "Resolved"
+msgstr "Résolu"
+
+#. module: transport_management
+#: model:ir.model.fields,selection:transport_management.field_transport_driver_report__state,closed
+msgid "Closed"
+msgstr "Fermé"
+
+#. module: transport_management
+#: model:ir.ui.menu,name:transport_management.menu_transport_driver_reports
+msgid "Driver Reports"
+msgstr "Rapports de conducteur"
+
+#. module: transport_management
+#: model:ir.ui.menu,name:transport_management.menu_transport_driver_report_all
+msgid "All Reports"
+msgstr "Tous les rapports"
+
+#. module: transport_management
+#: model:ir.ui.menu,name:transport_management.menu_transport_driver_report_my
+msgid "My Reports"
+msgstr "Mes rapports"
+
+#. module: transport_management
+#: model:ir.ui.menu,name:transport_management.menu_transport_driver_report_pending
+msgid "Pending Reports"
+msgstr "Rapports en attente"
+
+#. module: transport_management
+#: model:ir.ui.menu,name:transport_management.menu_transport_driver_report_urgent
+msgid "Urgent Reports"
+msgstr "Rapports urgents"
+
+#. module: transport_management
+#: model:ir.actions.act_window,name:transport_management.action_driver_report
+msgid "Driver Reports"
+msgstr "Rapports de conducteur"
+
+#. module: transport_management
+#: model:ir.actions.act_window,name:transport_management.action_driver_report_my
+msgid "My Reports"
+msgstr "Mes rapports"
+
+#. module: transport_management
+#: model:ir.actions.act_window,name:transport_management.action_driver_report_pending
+msgid "Pending Reports"
+msgstr "Rapports en attente"
+
+#. module: transport_management
+#: model:ir.actions.act_window,name:transport_management.action_driver_report_urgent
+msgid "Urgent Reports"
+msgstr "Rapports urgents"
+
+#. module: transport_management
+#: model:transport.driver.report,name:transport_management.driver_report_submit
+msgid "Submit"
+msgstr "Soumettre"
+
+#. module: transport_management
+#: model:transport.driver.report,name:transport_management.driver_report_acknowledge
+msgid "Acknowledge"
+msgstr "Accuser réception"
+
+#. module: transport_management
+#: model:transport.driver.report,name:transport_management.driver_report_start_progress
+msgid "Start Progress"
+msgstr "Commencer le traitement"
+
+#. module: transport_management
+#: model:transport.driver.report,name:transport_management.driver_report_resolve
+msgid "Resolve"
+msgstr "Résoudre"
+
+#. module: transport_management
+#: model:transport.driver.report,name:transport_management.driver_report_close
+msgid "Close"
+msgstr "Fermer"
+
+#. module: transport_management
+#: model:transport.driver.report,name:transport_management.driver_report_reset_draft
+msgid "Reset to Draft"
+msgstr "Remettre en brouillon"
+
+#. module: transport_management
+#: code:addons/transport_management/models/driver_report.py:0
+#, python-format
+msgid "New driver report submitted by %s"
+msgstr "Nouveau rapport de conducteur soumis par %s"
+
+#. module: transport_management
+#: code:addons/transport_management/models/driver_report.py:0
+#, python-format
+msgid "New Driver Report: %s"
+msgstr "Nouveau rapport de conducteur: %s"
+
+#. module: transport_management
+#: code:addons/transport_management/models/driver_report.py:0
+#, python-format
+msgid "Selected employee is not a driver."
+msgstr "L'employé sélectionné n'est pas un conducteur."
+
+#. module: transport_management
+#: code:addons/transport_management/models/driver_report.py:0
+#, python-format
+msgid "Report date cannot be in the future."
+msgstr "La date du rapport ne peut pas être dans le futur."
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Additional Information"
+msgstr "Informations supplémentaires"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Follow-up"
+msgstr "Suivi"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Resolution Notes"
+msgstr "Notes de résolution"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "This Week"
+msgstr "Cette semaine"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "This Month"
+msgstr "Ce mois-ci"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Group By"
+msgstr "Grouper par"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Report Date"
+msgstr "Date du rapport"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Create a new driver report"
+msgstr "Créer un nouveau rapport de conducteur"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Drivers can report incidents, accidents, maintenance issues, and other events here."
+msgstr "Les conducteurs peuvent signaler des incidents, des accidents, des problèmes de maintenance et d'autres événements ici."
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "Report incidents, accidents, maintenance issues, and other events."
+msgstr "Signaler des incidents, des accidents, des problèmes de maintenance et d'autres événements."
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "No pending reports"
+msgstr "Aucun rapport en attente"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "All driver reports are up to date."
+msgstr "Tous les rapports de conducteur sont à jour."
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "No urgent reports"
+msgstr "Aucun rapport urgent"
+
+#. module: transport_management
+#: view:transport.driver.report:0
+msgid "All urgent reports have been handled."
+msgstr "Tous les rapports urgents ont été traités."

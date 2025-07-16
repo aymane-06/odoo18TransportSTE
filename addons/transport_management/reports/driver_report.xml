@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Driver Report Template -->
+        <template id="driver_report_document">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context(lang=doc.driver_id.user_id.lang)"/>
+                <div class="page">
+                    <div class="oe_structure"/>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>
+                                <span t-field="doc.name"/>
+                                <small class="text-muted">
+                                    (<span t-field="doc.state"/>)
+                                </small>
+                            </h2>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt32">
+                        <div class="col-6">
+                            <strong>Driver:</strong>
+                            <span t-field="doc.driver_id.name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Report Date:</strong>
+                            <span t-field="doc.report_date" t-options="{'widget': 'datetime'}"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Report Type:</strong>
+                            <span t-field="doc.report_type"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Priority:</strong>
+                            <span t-field="doc.priority"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row" t-if="doc.trip_id">
+                        <div class="col-6">
+                            <strong>Related Trip:</strong>
+                            <span t-field="doc.trip_id.name"/>
+                        </div>
+                        <div class="col-6">
+                            <strong>Vehicle:</strong>
+                            <span t-field="doc.vehicle_id.name"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row" t-if="doc.location">
+                        <div class="col-6">
+                            <strong>Location:</strong>
+                            <span t-field="doc.location"/>
+                        </div>
+                        <div class="col-6" t-if="doc.country_id">
+                            <strong>Country:</strong>
+                            <span t-field="doc.country_id.name"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt32">
+                        <div class="col-12">
+                            <strong>Subject:</strong>
+                            <div t-field="doc.subject"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt16">
+                        <div class="col-12">
+                            <strong>Description:</strong>
+                            <div t-field="doc.description"/>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Information -->
+                    <div class="row mt32" t-if="doc.weather_conditions or doc.witnesses">
+                        <div class="col-12">
+                            <h4>Additional Information</h4>
+                        </div>
+                        <div class="col-6" t-if="doc.weather_conditions">
+                            <strong>Weather Conditions:</strong>
+                            <span t-field="doc.weather_conditions"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row" t-if="doc.witnesses">
+                        <div class="col-12">
+                            <strong>Witnesses:</strong>
+                            <div t-field="doc.witnesses"/>
+                        </div>
+                    </div>
+                    
+                    <!-- Police and Insurance Information -->
+                    <div class="row mt32" t-if="doc.police_report or doc.insurance_claim">
+                        <div class="col-12">
+                            <h4>Official Reports</h4>
+                        </div>
+                        <div class="col-6" t-if="doc.police_report">
+                            <strong>Police Report:</strong>
+                            <span>Yes</span>
+                            <br t-if="doc.police_report_number"/>
+                            <span t-if="doc.police_report_number">
+                                Report #: <span t-field="doc.police_report_number"/>
+                            </span>
+                        </div>
+                        <div class="col-6" t-if="doc.insurance_claim">
+                            <strong>Insurance Claim:</strong>
+                            <span>Yes</span>
+                            <br t-if="doc.insurance_claim_number"/>
+                            <span t-if="doc.insurance_claim_number">
+                                Claim #: <span t-field="doc.insurance_claim_number"/>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Follow-up Information -->
+                    <div class="row mt32" t-if="doc.acknowledged_by or doc.resolved_by">
+                        <div class="col-12">
+                            <h4>Follow-up</h4>
+                        </div>
+                        <div class="col-6" t-if="doc.acknowledged_by">
+                            <strong>Acknowledged By:</strong>
+                            <span t-field="doc.acknowledged_by.name"/>
+                            <br/>
+                            <strong>Date:</strong>
+                            <span t-field="doc.acknowledged_date" t-options="{'widget': 'datetime'}"/>
+                        </div>
+                        <div class="col-6" t-if="doc.resolved_by">
+                            <strong>Resolved By:</strong>
+                            <span t-field="doc.resolved_by.name"/>
+                            <br/>
+                            <strong>Date:</strong>
+                            <span t-field="doc.resolved_date" t-options="{'widget': 'datetime'}"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row" t-if="doc.resolution_notes">
+                        <div class="col-12">
+                            <strong>Resolution Notes:</strong>
+                            <div t-field="doc.resolution_notes"/>
+                        </div>
+                    </div>
+                    
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+        
+        <!-- Driver Report Main Template -->
+        <template id="driver_report_main">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="transport_management.driver_report_document" t-lang="doc.driver_id.user_id.lang"/>
+                </t>
+            </t>
+        </template>
+        
+        <!-- Driver Report Action -->
+        <record id="action_driver_report_print" model="ir.actions.report">
+            <field name="name">Driver Report</field>
+            <field name="model">transport.driver.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">transport_management.driver_report_main</field>
+            <field name="report_file">transport_management.driver_report_main</field>
+            <field name="binding_model_id" ref="model_transport_driver_report"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+    </data>
+</odoo>

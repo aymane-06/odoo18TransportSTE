@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Driver Report Data -->
+        <record id="demo_driver_report_1" model="transport.driver.report">
+            <field name="name">RPT/0001/25</field>
+            <field name="report_date" eval="(datetime.datetime.now() - datetime.timedelta(days=2))"/>
+            <field name="driver_id" ref="hr.employee_admin"/>
+            <field name="report_type">incident</field>
+            <field name="priority">medium</field>
+            <field name="subject">Minor traffic incident</field>
+            <field name="description">Small collision with another vehicle in Paris. No injuries reported. Minor damage to the rear bumper.</field>
+            <field name="location">Paris, France</field>
+            <field name="country_id" ref="base.fr"/>
+            <field name="state">submitted</field>
+            <field name="weather_conditions">Rainy</field>
+            <field name="police_report">True</field>
+            <field name="police_report_number">PAR-2025-001234</field>
+        </record>
+
+        <record id="demo_driver_report_2" model="transport.driver.report">
+            <field name="name">RPT/0002/25</field>
+            <field name="report_date" eval="(datetime.datetime.now() - datetime.timedelta(days=5))"/>
+            <field name="driver_id" ref="hr.employee_admin"/>
+            <field name="report_type">maintenance</field>
+            <field name="priority">high</field>
+            <field name="subject">Engine overheating</field>
+            <field name="description">The engine started overheating during the trip from Casablanca to Tangier. Had to stop and wait for assistance.</field>
+            <field name="location">Rabat, Morocco</field>
+            <field name="country_id" ref="base.ma"/>
+            <field name="state">resolved</field>
+            <field name="weather_conditions">Hot and sunny</field>
+            <field name="resolved_by" ref="base.user_admin"/>
+            <field name="resolved_date" eval="(datetime.datetime.now() - datetime.timedelta(days=1))"/>
+            <field name="resolution_notes">Vehicle was towed to the nearest service station. Radiator was replaced. Vehicle is now operational.</field>
+        </record>
+
+        <record id="demo_driver_report_3" model="transport.driver.report">
+            <field name="name">RPT/0003/25</field>
+            <field name="report_date" eval="(datetime.datetime.now() - datetime.timedelta(days=1))"/>
+            <field name="driver_id" ref="hr.employee_admin"/>
+            <field name="report_type">fuel</field>
+            <field name="priority">low</field>
+            <field name="subject">Fuel consumption report</field>
+            <field name="description">Higher than usual fuel consumption noticed during the last trip. Possible causes: heavy traffic, air conditioning usage, or vehicle maintenance needed.</field>
+            <field name="location">Marseille, France</field>
+            <field name="country_id" ref="base.fr"/>
+            <field name="state">acknowledged</field>
+            <field name="weather_conditions">Clear</field>
+            <field name="acknowledged_by" ref="base.user_admin"/>
+            <field name="acknowledged_date" eval="datetime.datetime.now()"/>
+        </record>
+
+        <record id="demo_driver_report_4" model="transport.driver.report">
+            <field name="name">RPT/0004/25</field>
+            <field name="report_date" eval="datetime.datetime.now()"/>
+            <field name="driver_id" ref="hr.employee_admin"/>
+            <field name="report_type">customer</field>
+            <field name="priority">medium</field>
+            <field name="subject">Customer complaint</field>
+            <field name="description">Customer was dissatisfied with the delivery time. Package arrived 2 hours later than scheduled due to customs delays.</field>
+            <field name="location">Tangier, Morocco</field>
+            <field name="country_id" ref="base.ma"/>
+            <field name="state">in_progress</field>
+            <field name="weather_conditions">Cloudy</field>
+            <field name="acknowledged_by" ref="base.user_admin"/>
+            <field name="acknowledged_date" eval="datetime.datetime.now()"/>
+        </record>
+
+        <record id="demo_driver_report_5" model="transport.driver.report">
+            <field name="name">RPT/0005/25</field>
+            <field name="report_date" eval="(datetime.datetime.now() - datetime.timedelta(days=3))"/>
+            <field name="driver_id" ref="hr.employee_admin"/>
+            <field name="report_type">security</field>
+            <field name="priority">urgent</field>
+            <field name="subject">Attempted theft</field>
+            <field name="description">Someone attempted to break into the vehicle during the overnight stop. Security guard intervened. No items were stolen.</field>
+            <field name="location">Barcelona, Spain</field>
+            <field name="country_id" ref="base.es"/>
+            <field name="state">closed</field>
+            <field name="weather_conditions">Clear night</field>
+            <field name="witnesses">Security guard: Juan Martinez, Badge #1234</field>
+            <field name="police_report">True</field>
+            <field name="police_report_number">BCN-2025-005678</field>
+            <field name="resolved_by" ref="base.user_admin"/>
+            <field name="resolved_date" eval="(datetime.datetime.now() - datetime.timedelta(days=2))"/>
+            <field name="resolution_notes">Police report filed. Additional security measures implemented for overnight stops.</field>
+        </record>
+
+    </data>
+</odoo>

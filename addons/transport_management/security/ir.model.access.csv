@@ -19,3 +19,7 @@ access_sale_order_transport_manager,sale.order.transport.manager,sale.model_sale
 access_sale_order_transport_commercial,sale.order.transport.commercial,sale.model_sale_order,group_commercial_responsible,1,1,1,0
 access_sale_order_line_transport_user,sale.order.line.transport.user,sale.model_sale_order_line,group_transport_user,1,1,1,0
 access_sale_order_line_transport_manager,sale.order.line.transport.manager,sale.model_sale_order_line,group_transport_manager,1,1,1,1
+access_transport_driver_report_user,transport.driver.report.user,model_transport_driver_report,group_transport_user,1,1,1,0
+access_transport_driver_report_manager,transport.driver.report.manager,model_transport_driver_report,group_transport_manager,1,1,1,1
+access_transport_driver_report_admin,transport.driver.report.admin,model_transport_driver_report,group_transport_admin,1,1,1,1
+access_transport_driver_report_driver,transport.driver.report.driver,model_transport_driver_report,base.group_user,1,1,1,0

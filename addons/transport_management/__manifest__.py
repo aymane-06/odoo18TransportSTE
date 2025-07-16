@@ -32,7 +32,6 @@
         'security/ir.model.access.csv',
         'data/trip_data.xml',
         'data/transport_products.xml',
-        'views/transport_dashboard_views.xml',
         'views/trip_views.xml',
         'views/trip_expense_views.xml',
         'views/trip_revenue_views.xml',
@@ -40,13 +39,18 @@
         'views/fleet_vehicle_model_views.xml',
         'views/fleet_vehicle_views.xml',
         'views/hr_employee_views.xml',
+        'views/driver_report_views.xml',
+        'views/transport_dashboard_views.xml',
         'views/menus.xml',
+        'security/driver_report_security.xml',
         'reports/trip_report.xml',
         'reports/profit_analysis_report.xml',
+        'reports/driver_report.xml',
         
     ],
     'demo': [
         'demo/demo_data.xml',
+        'demo/driver_report_demo.xml',
     ],
     'assets': {
         'web.assets_backend': [

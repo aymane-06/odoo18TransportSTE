@@ -110,6 +110,38 @@
                   action="hr.open_view_employee_list_my" 
                   sequence="20"/>
 
+        <!-- Driver Reports Submenu -->
+        <menuitem id="menu_transport_driver_reports" 
+                  name="Driver Reports" 
+                  parent="menu_transport_management" 
+                  sequence="40"/>
+
+        <menuitem id="menu_transport_driver_report_all" 
+                  name="All Reports" 
+                  parent="menu_transport_driver_reports" 
+                  action="action_driver_report" 
+                  sequence="10"/>
+
+        <menuitem id="menu_transport_driver_report_my" 
+                  name="My Reports" 
+                  parent="menu_transport_driver_reports" 
+                  action="action_driver_report_my" 
+                  sequence="20"/>
+
+        <menuitem id="menu_transport_driver_report_pending" 
+                  name="Pending Reports" 
+                  parent="menu_transport_driver_reports" 
+                  action="action_driver_report_pending" 
+                  sequence="30"
+                  groups="group_transport_manager"/>
+
+        <menuitem id="menu_transport_driver_report_urgent" 
+                  name="Urgent Reports" 
+                  parent="menu_transport_driver_reports" 
+                  action="action_driver_report_urgent" 
+                  sequence="40"
+                  groups="group_transport_manager"/>
+
         <!-- Reports Submenu -->
         <menuitem id="menu_transport_reports" 
                   name="Reports" 

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Driver Report Form View -->
+        <record id="view_driver_report_form" model="ir.ui.view">
+            <field name="name">transport.driver.report.form</field>
+            <field name="model">transport.driver.report</field>
+            <field name="arch" type="xml">
+                <form string="Driver Report">
+                    <header>
+                        <button name="action_submit" string="Submit" type="object" 
+                                class="btn-primary" invisible="state != 'draft'"/>
+                        <button name="action_acknowledge" string="Acknowledge" type="object" 
+                                class="btn-secondary" invisible="state != 'submitted'"
+                                groups="transport_management.group_transport_manager"/>
+                        <button name="action_start_progress" string="Start Progress" type="object" 
+                                class="btn-secondary" invisible="state != 'acknowledged'"
+                                groups="transport_management.group_transport_manager"/>
+                        <button name="action_resolve" string="Resolve" type="object" 
+                                class="btn-success" invisible="state != 'in_progress'"
+                                groups="transport_management.group_transport_manager"/>
+                        <button name="action_close" string="Close" type="object" 
+                                class="btn-secondary" invisible="state != 'resolved'"
+                                groups="transport_management.group_transport_manager"/>
+                        <button name="action_reset_to_draft" string="Reset to Draft" type="object" 
+                                class="btn-warning" invisible="state == 'draft'"
+                                groups="transport_management.group_transport_admin"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submitted,acknowledged,in_progress,resolved,closed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="report_date"/>
+                                <field name="driver_id" options="{'no_create': True}"/>
+                                <field name="report_type"/>
+                                <field name="priority"/>
+                                <field name="subject"/>
+                            </group>
+                            <group>
+                                <field name="trip_id" options="{'no_create': True}"/>
+                                <field name="vehicle_id" options="{'no_create': True}"/>
+                                <field name="location"/>
+                                <field name="country_id" options="{'no_create': True}"/>
+                                <field name="days_since_report"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Description">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Additional Information">
+                                <group>
+                                    <group>
+                                        <field name="weather_conditions"/>
+                                        <field name="police_report"/>
+                                        <field name="police_report_number" invisible="not police_report"/>
+                                        <field name="insurance_claim"/>
+                                        <field name="insurance_claim_number" invisible="not insurance_claim"/>
+                                    </group>
+                                </group>
+                                <group string="Witnesses">
+                                    <field name="witnesses" nolabel="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Follow-up">
+                                <group>
+                                    <group>
+                                        <field name="acknowledged_by" readonly="1"/>
+                                        <field name="acknowledged_date" readonly="1"/>
+                                        <field name="resolved_by" readonly="1"/>
+                                        <field name="resolved_date" readonly="1"/>
+                                    </group>
+                                </group>
+                                <group string="Resolution Notes">
+                                    <field name="resolution_notes" nolabel="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Attachments">
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Driver Report Tree View -->
+        <record id="view_driver_report_tree" model="ir.ui.view">
+            <field name="name">transport.driver.report.list</field>
+            <field name="model">transport.driver.report</field>
+            <field name="arch" type="xml">
+                <list string="Driver Reports" decoration-danger="priority == 'urgent'" 
+                      decoration-warning="priority == 'high'" decoration-info="state == 'draft'">
+                    <field name="name"/>
+                    <field name="report_date"/>
+                    <field name="driver_id"/>
+                    <field name="report_type"/>
+                    <field name="priority"/>
+                    <field name="subject"/>
+                    <field name="trip_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="state"/>
+                    <field name="days_since_report"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Driver Report Search View -->
+        <record id="view_driver_report_search" model="ir.ui.view">
+            <field name="name">transport.driver.report.search</field>
+            <field name="model">transport.driver.report</field>
+            <field name="arch" type="xml">
+                <search string="Driver Reports">
+                    <field name="name"/>
+                    <field name="driver_id"/>
+                    <field name="subject"/>
+                    <field name="trip_id"/>
+                    <field name="vehicle_id"/>
+                    <field name="location"/>
+                    
+                    <filter string="My Reports" name="my_reports" 
+                            domain="[('driver_id.user_id', '=', uid)]"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Submitted" name="submitted" domain="[('state', '=', 'submitted')]"/>
+                    <filter string="Acknowledged" name="acknowledged" domain="[('state', '=', 'acknowledged')]"/>
+                    <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                    <filter string="Resolved" name="resolved" domain="[('state', '=', 'resolved')]"/>
+                    <filter string="Closed" name="closed" domain="[('state', '=', 'closed')]"/>
+                    
+                    <separator/>
+                    <filter string="Urgent" name="urgent" domain="[('priority', '=', 'urgent')]"/>
+                    <filter string="High Priority" name="high" domain="[('priority', '=', 'high')]"/>
+                    <filter string="Medium Priority" name="medium" domain="[('priority', '=', 'medium')]"/>
+                    <filter string="Low Priority" name="low" domain="[('priority', '=', 'low')]"/>
+                    
+                    <separator/>
+                    <filter string="Incidents" name="incidents" domain="[('report_type', '=', 'incident')]"/>
+                    <filter string="Accidents" name="accidents" domain="[('report_type', '=', 'accident')]"/>
+                    <filter string="Maintenance" name="maintenance" domain="[('report_type', '=', 'maintenance')]"/>
+                    <filter string="Fuel Reports" name="fuel" domain="[('report_type', '=', 'fuel')]"/>
+                    
+                    <separator/>
+                    <filter string="Today" name="today" domain="[('report_date', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('report_date', '&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
+                    <filter string="This Week" name="this_week" domain="[('report_date', '&gt;=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d'))]"/>
+                    <filter string="This Month" name="this_month" domain="[('report_date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                    
+                    <group expand="0" string="Group By">
+                        <filter string="Driver" name="group_driver" context="{'group_by': 'driver_id'}"/>
+                        <filter string="Report Type" name="group_type" context="{'group_by': 'report_type'}"/>
+                        <filter string="Priority" name="group_priority" context="{'group_by': 'priority'}"/>
+                        <filter string="Status" name="group_status" context="{'group_by': 'state'}"/>
+                        <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>
+                        <filter string="Trip" name="group_trip" context="{'group_by': 'trip_id'}"/>
+                        <filter string="Report Date" name="group_date" context="{'group_by': 'report_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Driver Report Calendar View -->
+        <record id="view_driver_report_calendar" model="ir.ui.view">
+            <field name="name">transport.driver.report.calendar</field>
+            <field name="model">transport.driver.report</field>
+            <field name="arch" type="xml">
+                <calendar string="Driver Reports" date_start="report_date" color="priority">
+                    <field name="name"/>
+                    <field name="driver_id"/>
+                    <field name="report_type"/>
+                    <field name="priority"/>
+                    <field name="subject"/>
+                    <field name="state"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Driver Report Kanban View -->
+        <record id="view_driver_report_kanban" model="ir.ui.view">
+            <field name="name">transport.driver.report.kanban</field>
+            <field name="model">transport.driver.report</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column">
+                    <field name="name"/>
+                    <field name="driver_id"/>
+                    <field name="report_type"/>
+                    <field name="priority"/>
+                    <field name="subject"/>
+                    <field name="state"/>
+                    <field name="report_date"/>
+                    <field name="days_since_report"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                        <br/>
+                                        <small><field name="subject"/></small>
+                                    </div>
+                                    <div class="o_kanban_record_top_right">
+                                        <div class="o_kanban_record_priority">
+                                            <field name="priority" widget="priority"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="driver_id"/>
+                                    <br/>
+                                    <span class="text-muted">Type: </span><field name="report_type"/>
+                                    <br/>
+                                    <span class="text-muted">Date: </span><field name="report_date"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span class="text-muted"><field name="days_since_report"/> days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Actions -->
+        <record id="action_driver_report" model="ir.actions.act_window">
+            <field name="name">Driver Reports</field>
+            <field name="res_model">transport.driver.report</field>
+            <field name="view_mode">kanban,list,form,calendar</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new driver report
+                </p>
+                <p>
+                    Drivers can report incidents, accidents, maintenance issues, and other events here.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_driver_report_my" model="ir.actions.act_window">
+            <field name="name">My Reports</field>
+            <field name="res_model">transport.driver.report</field>
+            <field name="view_mode">kanban,list,form,calendar</field>
+            <field name="context">{'search_default_my_reports': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new driver report
+                </p>
+                <p>
+                    Report incidents, accidents, maintenance issues, and other events.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_driver_report_pending" model="ir.actions.act_window">
+            <field name="name">Pending Reports</field>
+            <field name="res_model">transport.driver.report</field>
+            <field name="view_mode">kanban,list,form,calendar</field>
+            <field name="domain">[('state', 'in', ['submitted', 'acknowledged', 'in_progress'])]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No pending reports
+                </p>
+                <p>
+                    All driver reports are up to date.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_driver_report_urgent" model="ir.actions.act_window">
+            <field name="name">Urgent Reports</field>
+            <field name="res_model">transport.driver.report</field>
+            <field name="view_mode">kanban,list,form,calendar</field>
+            <field name="domain">[('priority', '=', 'urgent'), ('state', '!=', 'closed')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No urgent reports
+                </p>
+                <p>
+                    All urgent reports have been handled.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

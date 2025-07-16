@@ -7,3 +7,4 @@ from . import sale_order
 from . import fleet_vehicle
 from . import fleet_vehicle_model
 from . import hr_employee
+from . import driver_report
