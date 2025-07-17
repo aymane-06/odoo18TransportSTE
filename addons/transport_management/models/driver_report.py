@@ -28,8 +28,7 @@ class DriverReport(models.Model):
     
     driver_id = fields.Many2one(
         'hr.employee',
-        string='Driver',
-        domain=[('is_driver', '=', True)],
+        string=_('Driver'),
         required=True,
         default=lambda self: self._get_current_driver(),
         tracking=True
@@ -189,11 +188,18 @@ class DriverReport(models.Model):
     
     def _get_current_driver(self):
         """Get the current user's employee record if they are a driver"""
+        # First find the employee by user_id, then check if they are a driver using sudo
         employee = self.env['hr.employee'].search([
-            ('user_id', '=', self.env.uid),
-            ('is_driver', '=', True)
+            ('user_id', '=', self.env.uid)
         ], limit=1)
-        return employee.id if employee else False
+        
+        if employee:
+            # Use sudo to safely check the is_driver field to avoid access errors
+            employee_sudo = employee.sudo()
+            if employee_sudo.is_driver:
+                return employee.id
+        
+        return False
     
     @api.model
     def create(self, vals):
@@ -262,8 +268,11 @@ class DriverReport(models.Model):
     @api.constrains('driver_id')
     def _check_driver(self):
         for record in self:
-            if record.driver_id and not record.driver_id.is_driver:
-                raise ValidationError(_('Selected employee is not a driver.'))
+            if record.driver_id:
+                # Use sudo to safely check the is_driver field to avoid access errors
+                employee_sudo = record.driver_id.sudo()
+                if not employee_sudo.is_driver:
+                    raise ValidationError(_('Selected employee is not a driver.'))
     
     @api.constrains('report_date')
     def _check_report_date(self):
