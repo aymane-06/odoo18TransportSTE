@@ -1,147 +1,321 @@
-# Installing Odoo 18.0 with one command (Supports multiple Odoo instances on one server).
+# Transport Management Module
 
-## Quick Installation
+Module Odoo 18 pour la gestion complète des opérations de transport entre le Maroc et la France. Ce module centralise la gestion des véhicules, des trajets, des chauffeurs, des revenus et des dépenses, permettant un calcul précis de la rentabilité des missions.
 
-Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) yourself, then run the following to set up first Odoo instance @ `localhost:10018` (default master password: `minhng.info`):
+## Table des matières
 
-``` bash
-curl -s https://raw.githubusercontent.com/minhng92/odoo-18-docker-compose/master/run.sh | bash -s odoo-one 10018 20018
+- [Introduction](#introduction)
+- [Fonctionnalités](#fonctionnalités)
+- [Technologies utilisées](#technologies-utilisées)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Utilisation](#utilisation)
+- [Structure du module](#structure-du-module)
+- [API REST](#api-rest)
+- [Tests](#tests)
+- [Contribution](#contribution)
+- [Auteurs](#auteurs)
+- [Licence](#licence)
+
+## Introduction
+
+Le module **transport_management** est une solution complète développée spécifiquement pour les sociétés de transport opérant sur les liaisons internationales Maroc-France. Il offre une gestion centralisée et automatisée de tous les aspects opérationnels et financiers des missions de transport.
+
+## Fonctionnalités
+
+### Gestion des Voyages
+- Création et planification des missions de transport
+- Affectation automatique des véhicules et chauffeurs
+- Suivi en temps réel des statuts (en attente, en cours, terminé)
+- Calcul automatique des distances et temps de trajet
+- Gestion des arrêts multiples et itinéraires complexes
+
+### Gestion des Véhicules
+- Registre complet du parc automobile
+- Suivi de l'état technique et documentaire
+- Planification et historique des maintenances
+- Contrôle des disponibilités et réservations
+- Gestion des carburants et consommations
+
+### Gestion des Chauffeurs
+- Profils détaillés des conducteurs
+- Affectation intelligente selon les compétences
+- Suivi des trajets et performances
+- Gestion des rapports d'incidents
+- Contrôle des temps de conduite et repos
+
+### Suivi Financier
+- Saisie des revenus par mission
+- Enregistrement détaillé des dépenses
+- Calcul automatique de la rentabilité
+- Analyse des coûts par type et période
+- Prévisions budgétaires
+
+### Tableaux de Bord
+- Indicateurs clés de performance (KPI)
+- Analyse des coûts, revenus et marges
+- Graphiques interactifs en temps réel
+- Rapports personnalisables
+- Alertes et notifications
+
+### Sécurité et Accès
+- Gestion des rôles utilisateurs
+- Droits d'accès granulaires
+- Profils prédéfinis (Administrateur, Gestionnaire, Chauffeur)
+- Audit trail complet
+- Sécurisation des données sensibles
+
+### Intégration Mobile
+- API REST complète
+- Synchronisation avec application Flutter
+- Accès temps réel pour les chauffeurs
+- Géolocalisation et suivi GPS
+- Mode hors ligne disponible
+
+## Technologies utilisées
+
+- **Framework** : Odoo 18 (Python 3.12+)
+- **Interface** : XML, QWeb, JavaScript
+- **Base de données** : PostgreSQL 17
+- **Frontend interactif** : OWL (Odoo Web Library)
+- **API** : REST avec authentification JWT
+- **Versioning** : Git
+- **Conteneurisation** : Docker & Docker Compose
+
+## Installation
+
+### Prérequis
+
+- Odoo 18 installé et configuré
+- PostgreSQL 17 ou supérieur
+- Python 3.12 ou supérieur
+- Docker et Docker Compose (optionnel)
+
+### Installation du module
+
+1. **Copier le module dans le répertoire addons**
+   ```bash
+   cp -r transport_management /path/to/odoo/addons/
+   ```
+
+2. **Démarrer Odoo avec Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Accéder à l'interface Odoo**
+   - Ouvrir http://localhost:10018
+   - Se connecter avec les identifiants administrateur
+
+4. **Activer le mode développeur**
+   - Aller dans Paramètres → Activer le mode développeur
+
+5. **Mettre à jour la liste des modules**
+   - Apps → Mettre à jour la liste des Apps
+
+6. **Installer le module**
+   - Rechercher "Transport Management"
+   - Cliquer sur "Installer"
+
+## Configuration
+
+### Configuration initiale
+
+1. **Créer les groupes d'utilisateurs**
+   - Aller dans Paramètres → Utilisateurs et sociétés → Groupes
+   - Vérifier la présence des groupes Transport
+
+2. **Configurer les données de base**
+   - Véhicules : Ajouter votre parc automobile
+   - Chauffeurs : Enregistrer les conducteurs
+   - Itinéraires : Définir les routes principales
+
+3. **Paramétrer les coûts**
+   - Coûts kilométriques par type de véhicule
+   - Tarifs standards par destination
+   - Frais fixes et variables
+
+## Utilisation
+
+### Création d'un voyage
+
+1. Aller dans **Transport → Voyages**
+2. Cliquer sur **Nouveau**
+3. Renseigner les informations :
+   - Origine et destination
+   - Date et heure de départ
+   - Type de marchandise
+   - Client
+4. Affecter véhicule et chauffeur
+5. Confirmer le voyage
+
+### Suivi financier
+
+1. **Saisie des revenus**
+   - Transport → Revenus → Nouveau
+   - Lier au voyage correspondant
+
+2. **Enregistrement des dépenses**
+   - Transport → Dépenses → Nouveau
+   - Catégoriser les coûts
+
+3. **Analyse de rentabilité**
+   - Transport → Rapports → Analyse des profits
+   - Filtrer par période ou voyage
+
+## Structure du module
+
 ```
-and/or run the following to set up another Odoo instance @ `localhost:11018` (default master password: `minhng.info`):
-
-``` bash
-curl -s https://raw.githubusercontent.com/minhng92/odoo-18-docker-compose/master/run.sh | bash -s odoo-two 11018 21018
+transport_management/
+├── __init__.py
+├── __manifest__.py
+├── models/
+│   ├── __init__.py
+│   ├── trip.py                    # Gestion des voyages
+│   ├── fleet_vehicle.py           # Extension véhicules
+│   ├── hr_employee.py             # Extension employés
+│   ├── trip_revenue.py            # Gestion des revenus
+│   ├── trip_expense.py            # Gestion des dépenses
+│   └── driver_report.py           # Rapports chauffeurs
+├── views/
+│   ├── menus.xml                  # Menus principaux
+│   ├── trip_views.xml             # Vues des voyages
+│   ├── fleet_vehicle_views.xml    # Vues des véhicules
+│   ├── hr_employee_views.xml      # Vues des employés
+│   ├── trip_revenue_views.xml     # Vues des revenus
+│   ├── trip_expense_views.xml     # Vues des dépenses
+│   └── transport_dashboard_views.xml # Tableau de bord
+├── security/
+│   ├── ir.model.access.csv        # Droits d'accès
+│   ├── security.xml               # Groupes utilisateurs
+│   └── driver_report_security.xml # Sécurité rapports
+├── controllers/
+│   ├── __init__.py
+│   └── controllers.py             # API REST
+├── data/
+│   ├── transport_products.xml     # Produits transport
+│   └── trip_data.xml              # Données de base
+├── demo/
+│   ├── demo_data.xml              # Données de démonstration
+│   └── driver_report_demo.xml     # Démo rapports
+├── reports/
+│   ├── __init__.py
+│   ├── trip_report.xml            # Rapport des voyages
+│   ├── driver_report.xml          # Rapport des chauffeurs
+│   └── profit_analysis_report.xml # Analyse rentabilité
+├── static/
+│   ├── description/
+│   │   └── icon.png               # Icône du module
+│   └── src/
+│       ├── css/
+│       ├── js/
+│       └── xml/
+└── i18n/
+    ├── fr.po                      # Traduction française
+    └── transport_management.pot   # Template traduction
 ```
 
-Some arguments:
-* First argument (**odoo-one**): Odoo deploy folder
-* Second argument (**10018**): Odoo port
-* Third argument (**20018**): live chat port
+## API REST
 
-If `curl` is not found, install it:
+Le module expose une API REST complète pour l'intégration avec des applications externes.
 
-``` bash
-$ sudo apt-get install curl
-# or
-$ sudo yum install curl
+### Endpoints principaux
+
+- `GET /api/trips` - Liste des voyages
+- `POST /api/trips` - Création d'un voyage
+- `GET /api/trips/{id}` - Détails d'un voyage
+- `PUT /api/trips/{id}` - Mise à jour d'un voyage
+- `GET /api/vehicles` - Liste des véhicules
+- `GET /api/drivers` - Liste des chauffeurs
+
+### Authentification
+
+L'API utilise l'authentification JWT d'Odoo. Inclure le token dans les headers :
+
+```bash
+Authorization: Bearer <token>
 ```
 
-<p>
-<img src="screenshots/odoo-18-docker-compose.gif" width="100%">
-</p>
+### Exemple d'utilisation
 
-## Usage
+```python
+import requests
 
-Start the container:
-``` sh
-docker-compose up
-```
-Then open `localhost:10018` to access Odoo 18.
+# Authentification
+response = requests.post('/web/session/authenticate', {
+    'db': 'transport_db',
+    'login': 'admin',
+    'password': 'password'
+})
 
-- **If you get any permission issues**, change the folder permission to make sure that the container is able to access the directory:
-
-``` sh
-$ sudo chmod -R 777 addons
-$ sudo chmod -R 777 etc
-$ sudo chmod -R 777 postgresql
+# Récupération des voyages
+trips = requests.get('/api/trips', headers={
+    'Authorization': f'Bearer {token}'
+})
 ```
 
-- If you want to start the server with a different port, change **10018** to another value in **docker-compose.yml** inside the parent dir:
+## Tests
 
-```
-ports:
- - "10018:8069"
-```
+Le module inclut une suite de tests complète pour garantir la qualité du code.
 
-- To run Odoo container in detached mode (be able to close terminal without stopping Odoo):
+### Tests unitaires
 
-```
-docker-compose up -d
-```
+```bash
+# Exécuter tous les tests
+odoo-bin -d test_db -i transport_management --test-enable
 
-- To Use a restart policy, i.e. configure the restart policy for a container, change the value related to **restart** key in **docker-compose.yml** file to one of the following:
-   - `no` =	Do not automatically restart the container. (the default)
-   - `on-failure[:max-retries]` =	Restart the container if it exits due to an error, which manifests as a non-zero exit code. Optionally, limit the number of times the Docker daemon attempts to restart the container using the :max-retries option.
-  - `always` =	Always restart the container if it stops. If it is manually stopped, it is restarted only when Docker daemon restarts or the container itself is manually restarted. (See the second bullet listed in restart policy details)
-  - `unless-stopped`	= Similar to always, except that when the container is stopped (manually or otherwise), it is not restarted even after Docker daemon restarts.
-```
- restart: always             # run as a service
+# Tests spécifiques
+odoo-bin -d test_db --test-tags transport_management
 ```
 
-- To increase maximum number of files watching from 8192 (default) to **524288**. In order to avoid error when we run multiple Odoo instances. This is an *optional step*. These commands are for Ubuntu user:
+### Tests de régression
 
-```
-$ if grep -qF "fs.inotify.max_user_watches" /etc/sysctl.conf; then echo $(grep -F "fs.inotify.max_user_watches" /etc/sysctl.conf); else echo "fs.inotify.max_user_watches = 524288" | sudo tee -a /etc/sysctl.conf; fi
-$ sudo sysctl -p    # apply new config immediately
-``` 
+```bash
+# Tests des modèles
+python -m pytest tests/test_models.py
 
-## Custom addons
+# Tests des contrôleurs
+python -m pytest tests/test_controllers.py
 
-The **addons/** folder contains custom addons. Just put your custom addons if you have any.
-
-## Odoo configuration & log
-
-* To change Odoo configuration, edit file: **etc/odoo.conf**.
-* Log file: **etc/odoo-server.log**
-* Default database password (**admin_passwd**) is `minhng.info`, please change it @ [etc/odoo.conf#L60](/etc/odoo.conf#L60)
-
-## Odoo container management
-
-**Run Odoo**:
-
-``` bash
-docker-compose up -d
+# Tests des vues
+python -m pytest tests/test_views.py
 ```
 
-**Restart Odoo**:
+### Couverture de code
 
-``` bash
-docker-compose restart
+```bash
+# Générer un rapport de couverture
+coverage run --source=transport_management odoo-bin -d test_db -i transport_management --test-enable
+coverage report -m
 ```
 
-**Stop Odoo**:
+## Contribution
 
-``` bash
-docker-compose down
-```
+Les contributions sont les bienvenues ! Merci de suivre ces étapes :
 
-## Live chat
+1. Fork le projet
+2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/nouvelle-fonctionnalite`)
+3. Commiter vos changements (`git commit -am 'Ajout d'une nouvelle fonctionnalité'`)
+4. Pousser vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
+5. Créer une Pull Request
 
-In [docker-compose.yml#L21](docker-compose.yml#L21), we exposed port **20018** for live-chat on host.
+### Standards de développement
 
-Configuring **nginx** to activate live chat feature (in production):
+- Respecter les conventions PEP 8 pour Python
+- Documenter les fonctions et classes
+- Ajouter des tests pour les nouvelles fonctionnalités
+- Utiliser des noms de variables explicites
+- Suivre les bonnes pratiques Odoo
 
-``` conf
-#...
-server {
-    #...
-    location /longpolling/ {
-        proxy_pass http://0.0.0.0:20018/longpolling/;
-    }
-    #...
-}
-#...
-```
+## Auteurs
 
-## docker-compose.yml
+- **Aymane Himame** - Développeur full stack
+  - Email : aymane.himame@gmail.com
+  - GitHub : [@aymane-himame](https://github.com/aymane-himame)
 
-* odoo:18
-* postgres:17
+- **LeanSoft** - Équipe d'encadrement et supervision
 
-## Odoo 18.0 screenshots after successful installation.
 
-<p align="center">
-<img src="screenshots/odoo-18-welcome-screenshot.png" width="50%">
-</p>
 
-<p>
-<img src="screenshots/odoo-18-apps-screenshot.png" width="100%">
-</p>
 
-<p>
-<img src="screenshots/odoo-18-sales-screen.png" width="100%">
-</p>
-
-<p>
-<img src="screenshots/odoo-18-product-form.png" width="100%">
-</p>
+**Transport Management Module** - Développé avec Odoo 18 pour optimiser les opérations de transport international.
